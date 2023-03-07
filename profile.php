@@ -207,6 +207,25 @@ $stmt->close();
           <p class="mt-3 mb-1">
             <a href="reset_password.php">Passwort zurücksetzen</a>
           </p><br>
+          <style>
+            input[type=submit] {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #3e8e41;
+}
+
+            </style>
           <form method="post" action="upload_profile_image.php" enctype="multipart/form-data">
           <label for="image">Profilbild:</label><br>
           <input type="file" accept="image/*" name="image" id="image"><br>

@@ -1,6 +1,6 @@
 <?php
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
+$DATABASE_HOST = '185.223.31.153';
+$DATABASE_USER = 'tobi';
+$DATABASE_PASS = 'rM0052bx#';
 $DATABASE_NAME = 'ui';
 ?>
