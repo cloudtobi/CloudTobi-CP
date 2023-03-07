@@ -171,7 +171,7 @@ $stmt->close();
               <div class="card-body box-profile">
               <h1 class="text-center"><?=$_SESSION['name']?><h1>
                 <div class="text-center">
-                <img widht="200" height="200" src="display_image.php" alt="Profilbild">
+                <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
                 </div>
                 <br>
               </div>
@@ -192,14 +192,90 @@ $stmt->close();
 				<table>
 					<tr>
 						<td>Benutzername:</td>
-						<td><?=$_SESSION['name']?></td>
-					</tr>
+            <td><?=$_SESSION['name']?> <a href="#" data-toggle="modal" data-target="#edit-username-modal"><i class="fas fa-pencil-alt"></i></a></td>
+          </tr>
 					<tr>
 						<td>Email:</td>
-						<td><?=$email?></td>
+            <td><?=$email?> <a href="#" data-toggle="modal" data-target="#edit-email-modal"><i class="fas fa-pencil-alt"></i></a></td>
 					</tr>
 				</table>
 			</div>
+      <!-- Modal zum Bearbeiten des Benutzernamens -->
+<div class="modal fade" id="edit-username-modal" tabindex="-1" role="dialog" aria-labelledby="edit-username-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="update_username.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit-username-modal-label">Benutzernamen ändern</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-username-input">Neuer Benutzername:</label>
+            <input type="text" class="form-control" id="new-username-input" name="new_username" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+      <!-- Modal zum Bearbeiten der Email -->
+      <div class="modal fade" id="edit-email-modal" tabindex="-1" role="dialog" aria-labelledby="edit-email-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="update_email.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit-email-modal-label">Emailadresse ändern</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-email-input">Neue Email:</label>
+            <input type="email" class="form-control" id="new-email-input" name="new_email" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+      <!-- Modal zum Passwort Reset -->
+      <div class="modal fade" id="edit-password-modal" tabindex="-1" role="dialog" aria-labelledby="edit-password-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="update_email.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit-email-modal-label">Emailadresse ändern</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-email-input">Neue Email:</label>
+            <input type="email" class="form-control" id="new-password-input" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
           <p class="mt-3 mb-1">
             <a href="reset_password.php">Passwort zurücksetzen</a>
           </p><br>
@@ -217,7 +293,7 @@ $stmt->close();
         cursor: pointer;
       }
             input[type=submit]:hover {
-        background-color: #007BFF;
+        background-color: #0466cf;
         }
         input[type=file] {
         background-color: #007BFF;
@@ -232,7 +308,7 @@ $stmt->close();
         cursor: pointer;
       }
       input[type=file]:hover {
-          background-color: #007BFF;
+          background-color: #0466cf;
       }
             </style>
           <form method="post" action="upload_profile_image.php" enctype="multipart/form-data">
