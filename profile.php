@@ -251,34 +251,6 @@ $stmt->close();
     </div>
   </div>
 </div>
-      <!-- Modal zum Passwort Reset -->
-      <div class="modal fade" id="edit-password-modal" tabindex="-1" role="dialog" aria-labelledby="edit-password-modal-label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form method="post" action="update_email.php">
-        <div class="modal-header">
-          <h5 class="modal-title" id="edit-email-modal-label">Emailadresse ändern</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="new-email-input">Neue Email:</label>
-            <input type="email" class="form-control" id="new-password-input" name="password" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-          <button type="submit" class="btn btn-primary">Speichern</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-          <p class="mt-3 mb-1">
-            <a href="reset_password.php">Passwort zurücksetzen</a>
-          </p><br>
           <style>
               input[type=submit] {
         background-color: #007BFF;
@@ -311,6 +283,9 @@ $stmt->close();
           background-color: #0466cf;
       }
             </style>
+                      <p class="mt-3 mb-1">
+            <a href="reset_password.php">Passwort zurücksetzen</a>
+          </p><br>
           <form method="post" action="upload_profile_image.php" enctype="multipart/form-data">
           <label for="image">Profilbild:</label><br>
           <input type="file" accept="image/*" name="image" id="image"><br>

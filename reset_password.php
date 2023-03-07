@@ -58,6 +58,9 @@ function logMessage($message, $priority, $username) {
   logMessage('hat sein Passwort geändert!', 'INFO', $username);
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
     if(mysqli_query($conn, $sql)) {
+      // Session zerstören und Benutzer auf die Login-Seite weiterleiten
+      session_start();
+      session_destroy();
       echo "Passwort wurde erfolgreich aktualisiert";
     } else {
       echo "Fehler beim Aktualisieren des Passworts: " . mysqli_error($conn);
