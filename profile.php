@@ -1,7 +1,5 @@
 <?php
-// We need to use sessions, so you should always start sessions using the below code.
 session_start();
-// If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
@@ -11,9 +9,7 @@ $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-// We don't have the password or email info stored in sessions so instead we can get the results from the database.
 $stmt = $con->prepare('SELECT email FROM accounts WHERE id = ?');
-// In this case we can use the account ID to get the account info.
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
 $stmt->bind_result($email);
@@ -208,23 +204,36 @@ $stmt->close();
             <a href="reset_password.php">Passwort zurücksetzen</a>
           </p><br>
           <style>
-            input[type=submit] {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #3e8e41;
-}
-
+              input[type=submit] {
+        background-color: #007BFF;
+        border: none;
+        color: white;
+        padding: 10px 40px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+            input[type=submit]:hover {
+        background-color: #007BFF;
+        }
+        input[type=file] {
+        background-color: transparent;
+        border: none;
+        color: white;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+      input[type=file]:hover {
+          background-color: transparent;
+      }
             </style>
           <form method="post" action="upload_profile_image.php" enctype="multipart/form-data">
           <label for="image">Profilbild:</label><br>
