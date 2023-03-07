@@ -184,10 +184,27 @@ tr:hover {
 .beamtenliste tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+button {
+  background-image: url('ms-excel-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+}
+
+button:hover {
+  opacity: 0.8;
+}
 </style>
 
 
-<button onclick="exportTableToExcel('items')">Excel</button>
+<button onclick="exportTableToExcel('items')" alt="Excel"></button>
 <script>
 function exportTableToExcel(items) {
   var tab_text="<table border='1px'><tr bgcolor='#87AFC6'>";
@@ -220,11 +237,6 @@ function exportTableToExcel(items) {
 }
 </script>
 
-<script>
-  $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
-  </script>
 <?php
   include 'datenbank_verbindung.php';
   $conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
@@ -238,7 +250,7 @@ function exportTableToExcel(items) {
 
   if ($result->num_rows > 0) {
     echo "<h2>Items</h2>";
-    echo "<table id='myTable' class='display' border='1'><tr><th></th><th>Nummer</th><th>Beschreibung</th><th>Beschreibung2</th><th>Einheit</th></tr>";
+    echo "<table id='items' border='1'><tr><th></th><th>Nummer</th><th>Beschreibung</th><th>Beschreibung2</th><th>Einheit</th></tr>";
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>".$row["id"]."</td><td>".$row["no"]."</td><td>".$row["description"]."</td> <td>".$row["description2"]."</td><td>".$row["unit"]."</td></tr>";
     }

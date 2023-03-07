@@ -220,7 +220,7 @@ $stmt->close();
         background-color: #007BFF;
         }
         input[type=file] {
-        background-color: transparent;
+        background-color: #007BFF;
         border: none;
         color: white;
         padding: 10px 10px;
@@ -232,7 +232,7 @@ $stmt->close();
         cursor: pointer;
       }
       input[type=file]:hover {
-          background-color: transparent;
+          background-color: #007BFF;
       }
             </style>
           <form method="post" action="upload_profile_image.php" enctype="multipart/form-data">
