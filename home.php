@@ -185,8 +185,6 @@ if (mysqli_connect_errno()) {
 <br>
 <br>
 <br>
-
-<br>
 <br>
 <br>
 <br>

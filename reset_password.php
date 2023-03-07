@@ -1,38 +1,77 @@
 <?php
-// Connect to the database
-include 'datenbank_verbindung.php';  
+// Verbindung zur Datenbank herstellen
+include 'datenbank_verbindung.php';
+$conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if (!$conn) {
+  die("Verbindung zur Datenbank fehlgeschlagen: " . mysqli_connect_error());
+}
+
+// Überprüfen, ob das Formular gesendet wurde
+if(isset($_POST['submit'])) {
+  // Abrufen des Benutzernamens und des eingegebenen Passworts aus dem Formular
+  $username = mysqli_real_escape_string($conn, $_POST['username']);
+  $current_password = mysqli_real_escape_string($conn, $_POST['current_password']);
+  $new_password = mysqli_real_escape_string($conn, $_POST['new_password']);
+
+  // Abrufen des gespeicherten gehashten Passworts aus der Datenbank
+  $sql = "SELECT password FROM accounts WHERE username='$username'";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  $hashed_password = $row['password'];
+
+  // Überprüfen, ob das eingegebene Passwort mit dem gespeicherten gehashten Passwort übereinstimmt
+  if(password_verify($current_password, $hashed_password)) {
+    // Hashen des neuen Passworts
+    $new_hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+    // Aktualisieren des Passworts in der Datenbank
+    $sql = "UPDATE accounts SET password='$new_hashed_password' WHERE username='$username'";
+//-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
+session_start();                                                                                                            
+if (!isset($_SESSION['loggedin'])) {                                                                                        
+	header('Location: index.html');
+	exit;
+}
+include 'datenbank_verbindung.php';
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if (mysqli_connect_errno()) {
+	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+}
+$stmt = $con->prepare('SELECT username FROM accounts WHERE id = ?');
+$stmt->bind_param('i', $_SESSION['id']);
+$stmt->execute();
+$stmt->bind_result($username);
+$stmt->fetch();
+$stmt->close();
 
-// Check for form submission
-if (isset($_POST['submit'])) {
-  $username = $db->real_escape_string($_POST['username']);
-  $current_password = $db->real_escape_string($_POST['current_password']);
-  $new_password = $db->real_escape_string($_POST['new_password']);
-
-  // Retrieve the user's current password hash from the database
-  $query = "SELECT password FROM accounts WHERE username = '$username'";
-  $result = $db->query($query);
-  $row = $result->fetch_assoc();
-  $current_password_hash = $row['password'];
-
-  // Check if the current password is correct
-  if (password_verify($current_password, $current_password_hash)) {
-    // The current password is correct, so update the password in the database
-    $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-    $query = "UPDATE accounts SET password = '$new_password_hash' WHERE username = '$username'";
-    $result = $db->query($query);
-    if ($result) {
-      echo 'Dein Passwort wurde erfolgreich geändert';
+function logMessage($message, $priority, $username) {
+    include 'datenbank_verbindung.php';
+    $mysqli = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+    $username = $mysqli->real_escape_string($username);
+    $message = $mysqli->real_escape_string($message);
+    $priority = $mysqli->real_escape_string($priority);
+    $now = date("d-m-Y H:i:s");
+    $query = "INSERT INTO logs (user_id, message, priority, created_at) VALUES ('$username', '$message', '$priority','$now')";
+    $mysqli->query($query);
+    $mysqli->close();
+  }
+  logMessage('hat sein Passwort geändert!', 'INFO', $username);
+//-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
+    if(mysqli_query($conn, $sql)) {
+      echo "Passwort wurde erfolgreich aktualisiert";
     } else {
-      echo 'Es ist ein Fehler aufgetreten!';
+      echo "Fehler beim Aktualisieren des Passworts: " . mysqli_error($conn);
     }
   } else {
-    // The current password is incorrect
-    echo 'Das aktuelle Passwort ist nicht korrekt!';
+    echo "Das eingegebene Passwort ist falsch";
   }
 }
 
+// Verbindung zur Datenbank schließen
+mysqli_close($conn);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
