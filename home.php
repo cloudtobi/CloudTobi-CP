@@ -93,7 +93,6 @@ if (mysqli_connect_errno()) {
         </div>
         </form>
       </div>
-
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
@@ -142,7 +141,6 @@ if (mysqli_connect_errno()) {
 </div>
 </section> 
 </aside>
-
 <br>
 <section class="content">
   <div style="margin: auto; width: fit-content;">
