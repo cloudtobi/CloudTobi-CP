@@ -62,4 +62,4 @@ function logMessage($message, $priority, $username) {
   header('Location: /profile.php');
   exit;
 }
-
+?>
