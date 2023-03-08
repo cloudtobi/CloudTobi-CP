@@ -144,7 +144,42 @@ if (mysqli_connect_errno()) {
 <br>
 <section class="content">
 <div style="margin: auto; width: fit-content;">
-
+<!-- Button zum Hinzufügen eines neuen Benutzers -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-user-modal">+</button>
+<br>
+<!-- Modal zum Hinzufügen eines neuen Benutzers -->
+<div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="add-user-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="add_user.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="add-user-modal-label">Neuen Benutzer hinzufügen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="username-input">Benutzername:</label>
+            <input type="text" class="form-control" id="username-input" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="email-input">Email:</label>
+            <input type="email" class="form-control" id="email-input" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password-input">Passwort:</label>
+            <input type="password" class="form-control" id="password-input" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <?php
   // Verbindung zur Datenbank herstellen
   include 'datenbank_verbindung.php';
@@ -161,7 +196,7 @@ if (mysqli_connect_errno()) {
   $result = mysqli_query($conn, $sql);
 
   // Tabelle erstellen
-  echo "<table class='table'>";
+  echo "<br><table class='table'>";
   echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Aktivierungscode</th><th></th></tr></thead>";
   echo "<tbody>";
 
@@ -194,31 +229,6 @@ if (mysqli_connect_errno()) {
   // Verbindung zur Datenbank schließen
   mysqli_close($conn);
 ?>
-<!-- Modal zum Bearbeiten des Benutzernamens -->
-<div class="modal fade" id="edit-username-modal" tabindex="-1" role="dialog" aria-labelledby="edit-username-modal-label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form method="post" action="update_username.php">
-        <div class="modal-header">
-          <h5 class="modal-title" id="edit-username-modal-label">Benutzernamen ändern</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="new-username-input">Neuer Benutzername:</label>
-            <input type="text" class="form-control" id="new-username-input" name="new_username" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-          <button type="submit" class="btn btn-primary">Speichern</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 
 	<script>
@@ -254,7 +264,7 @@ if (mysqli_connect_errno()) {
 <br>
 <br>
 <br>
-</div>
+<div>
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0
