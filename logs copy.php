@@ -24,12 +24,6 @@ if($row['rolle'] != "admin") {
     die();
 }
 
-echo '<script>
-        function closeErrorPopup() {
-            window.location.href = "home.php";
-        }
-      </script>'
-
 ?>
 <!DOCTYPE html>
 <html lang="de">
