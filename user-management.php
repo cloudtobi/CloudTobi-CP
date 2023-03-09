@@ -120,7 +120,7 @@ if($row['rolle'] != "admin") {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php" class="nav-link active">
+                <a href="home.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
@@ -142,11 +142,21 @@ if($row['rolle'] != "admin") {
                 </a>
               </li>
             </ul>
+            <?php if (mysqli_num_rows($result) > 0) { ?>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="logs.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Logs</p>
+              </a>
+            </li>
+            </ul>
+            <?php } ?>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="logs.php" class="nav-link">
+                <a href="pdf.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Logs</p>
+                  <p>User Management</p>
                 </a>
               </li>
             </ul>
@@ -211,7 +221,7 @@ $dbname = $DATABASE_NAME; // Datenbankname
 $conn = mysqli_connect($host, $user, $password, $dbname);
 
 // SQL-Abfrage zum Abrufen aller Benutzer
-$sql = "SELECT id, username, email, rolle FROM accounts";
+$sql = "SELECT id, username, email, rolle, notiz FROM accounts";
 $result = mysqli_query($conn, $sql);
 
 if (isset($_SESSION['success_message'])) {
@@ -223,7 +233,7 @@ if (isset($_SESSION['success_message'])) {
 }
 // Tabelle erstellen
 echo "<br><table class='table'>";
-echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Rolle</th><th></th></tr></thead>";
+echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Rolle</th><th>Notiz</th><th></th></tr></thead>";
 echo "<tbody>";
 
 // Daten der Benutzer in die Tabelle einfügen
@@ -232,6 +242,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   $username = $row['username'];
   $email = $row['email'];
   $rolle = $row['rolle'];
+  $notiz = $row['notiz'];
 
   // Tabelleintrag erstellen
   echo "<tr>";
@@ -241,6 +252,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   echo "<td><input type='text' class='form-control' name='username' value='" . $username . "'></td>";
   echo "<td><input type='email' class='form-control' name='email' value='" . $email . "'></td>";
   echo "<td><input type='text' class='form-control' name='rolle' value='" . $rolle . "'></td>";
+  echo "<td><input type='text' class='form-control' name='rolle' value='" . $notiz . "'></td>";
   echo "<td><input type='submit' class='btn btn-primary' name='submit_update' value='Speichern'></td>";
   echo "</form>";
   echo "</tr>";

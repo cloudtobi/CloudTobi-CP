@@ -57,6 +57,8 @@ function logMessage($message, $priority, $username) {
   logMessage('hat sein Profilbild geändert', 'INFO', $username);
 // LOGGING SYSTEM ----------------------------------------------------------------------------------------------------------
   // Leiten Sie den Benutzer zurück zur Profilseite
+  // Erfolgsmeldung in Session-Variable speichern
+  $_SESSION['success_message'] = "Profilbild aktualisiert.";
   header('Location: /profile.php');
   exit;
 }

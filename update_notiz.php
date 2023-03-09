@@ -9,42 +9,31 @@ if (!isset($_SESSION['id'])) {
 require_once('db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Formular wurde abgeschickt, also versuchen, die E-Mail-Adresse zu aktualisieren
+  // Formular wurde abgeschickt, also versuchen, die Notiz zu aktualisieren
 
   // Benutzereingabe validieren
-  if (!isset($_POST['new_email']) || empty($_POST['new_email'])) {
-    $_SESSION['error'] = 'Neue E-Mail-Adresse fehlt';
+  if (!isset($_POST['new_notiz']) || empty($_POST['new_notiz'])) {
+    $_SESSION['error'] = 'Neue Notiz fehlt';
     header('Location: profile.php');
     exit();
   }
 
   // E-Mail-Adresse aus der Formular-Eingabe holen
-  $new_email = $_POST['new_email'];
-
-  // Prüfen, ob die neue E-Mail-Adresse bereits verwendet wird
-  $stmt = $pdo->prepare('SELECT COUNT(*) FROM accounts WHERE email = ? AND id <> ?');
-  $stmt->execute([$new_email, $_SESSION['id']]);
-  $count = $stmt->fetchColumn();
-
-  if ($count > 0) {
-    $_SESSION['error'] = 'Die E-Mail-Adresse wird bereits verwendet';
-    header('Location: profile.php');
-    exit();
-  }
+  $new_notiz = $_POST['new_notiz'];
 
   try {
     // Beginnen der Transaktion
     $pdo->beginTransaction();
 
     // E-Mail-Adresse in der Datenbank aktualisieren
-    $stmt = $pdo->prepare('UPDATE accounts SET email = ? WHERE id = ?');
-    $stmt->execute([$new_email, $_SESSION['id']]);
+    $stmt = $pdo->prepare('UPDATE accounts SET notiz = ? WHERE id = ?');
+    $stmt->execute([$new_notiz, $_SESSION['id']]);
 
     // Transaktion erfolgreich beenden
     $pdo->commit();
 
     // Erfolgsmeldung ausgeben und zur Einstellungsseite zurückleiten
-    $_SESSION['success'] = 'Die E-Mail-Adresse wurde erfolgreich aktualisiert';
+    $_SESSION['success'] = 'Die Notiz wurde erfolgreich aktualisiert';
     //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
@@ -74,10 +63,10 @@ function logMessage($message, $priority, $username) {
     $mysqli->query($query);
     $mysqli->close();
   }
-  logMessage('hat seine Emailadresse geändert', 'INFO', $username);
+  logMessage('hat seine Notiz geändert', 'INFO', $username);
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
     // Erfolgsmeldung in Session-Variable speichern
-    $_SESSION['success_message'] = "Email aktualisiert.";
+    $_SESSION['success_message'] = "Notiz aktualisiert.";
     header('Location: profile.php');
     exit();
   } catch (PDOException $e) {

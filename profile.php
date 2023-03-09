@@ -9,10 +9,10 @@ $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-$stmt = $con->prepare('SELECT email, rolle FROM accounts WHERE id = ?');
+$stmt = $con->prepare('SELECT email, rolle, notiz FROM accounts WHERE id = ?');
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
-$stmt->bind_result($email, $rolle);
+$stmt->bind_result($email, $rolle, $notiz);
 $stmt->fetch();
 $stmt->close();
 ?>
@@ -185,6 +185,15 @@ $stmt->close();
     </section>
 
     <section class="content">
+    <?php
+          if (isset($_SESSION['success_message'])) {
+  // Erfolgsmeldung ausgeben
+  echo "<br><div class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
+  
+  // Session-Variable zurücksetzen
+  unset($_SESSION['success_message']);
+}
+?>
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
@@ -210,6 +219,11 @@ $stmt->close();
                   <div class="active tab-pane" id="activity">
                   <div>
 				<p>Hier sind deine Informationen:</p>
+        <style>
+          table tr {
+          line-height: 2em;
+          }
+          </style>
 				<table>
 					<tr>
 						<td>Benutzername:</td>
@@ -221,7 +235,11 @@ $stmt->close();
 					</tr>
           <tr>
 						<td>Berechtigungen:</td>
-            <td><?=$rolle?> <a href="#" data-toggle="modal" data-target="#edit-email-modal"></a></td>
+            <td><?=$rolle?> <a href="#" data-toggle="modal" data-target=""></a></td>
+					</tr>
+          <tr>
+						<td>Notiz:</td>
+            <td><?=$notiz?> <a href="#" data-toggle="modal" data-target="#edit-notiz-modal"><i class="fas fa-pencil-alt"></a></td>
 					</tr>
 				</table>
 			</div>
@@ -266,6 +284,32 @@ $stmt->close();
           <div class="form-group">
             <label for="new-email-input">Neue Email:</label>
             <input type="email" class="form-control" id="new-email-input" name="new_email" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+      <!-- Modal zum Bearbeiten der Notiz -->
+      <div class="modal fade" id="edit-notiz-modal" tabindex="-1" role="dialog" aria-labelledby="edit-notiz-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="update_notiz.php">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit-notiz-modal-label">Notiz ändern</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-email-input">Neue Notiz:</label>
+            <input type="text" class="form-control" id="new-notiz-input" name="new_notiz" required>
           </div>
         </div>
         <div class="modal-footer">
