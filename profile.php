@@ -97,7 +97,16 @@ $stmt->close();
           </div>
         </div>
       </div>
-
+<?php
+  include 'datenbank_verbindung.php';
+  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+  if (mysqli_connect_errno()) {
+    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+  }
+  $user_id = $_SESSION['id'];
+  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
+  $result = mysqli_query($con, $sql);
+?>
       <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item menu-open">
@@ -138,6 +147,16 @@ $stmt->close();
           <a href="logs.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Logs</p>
+          </a>
+        </li>
+      </ul>
+      <?php } ?>
+      <?php if (mysqli_num_rows($result) > 0) { ?>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="user-management.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>User Management</p>
           </a>
         </li>
       </ul>

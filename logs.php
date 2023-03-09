@@ -1,3 +1,4 @@
+<script type="text/javascript" src="redirecthome.js"></script>
 <?php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
@@ -17,20 +18,14 @@ $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 if($row['rolle'] != "admin") {
     echo '<div id="error-popup" style="display: block; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
-            <h2 style="margin-top: 0;">Error: Keine Berechtigung!</h2>
+            <h2 style="margin-top: 0;">Fehler: Keine Berechtigung!</h2>
             <p>Du hast keine Berechtigung, diese Seite zu sehen.</p>
-            <button onclick="closeErrorPopup()" style="background-color: #007bff; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+            <button onclick="redirectHome()" style="background-color: #007bff; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">OK</button>
           </div>';
     die();
 }
-
-echo '<script>
-        function closeErrorPopup() {
-            window.location.href = "home.php";
-        }
-      </script>'
-
 ?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -160,6 +155,16 @@ echo '<script>
                 </a>
               </li>
             </ul>
+            <?php if (mysqli_num_rows($result) > 0) { ?>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="user-management.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>User Management</p>
+          </a>
+        </li>
+      </ul>
+      <?php } ?>
           </li>
         </ul>
       </nav>

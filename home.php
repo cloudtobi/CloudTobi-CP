@@ -148,6 +148,16 @@ if (mysqli_connect_errno()) {
         </li>
       </ul>
       <?php } ?>
+      <?php if (mysqli_num_rows($result) > 0) { ?>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="user-management.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>User Management</p>
+          </a>
+        </li>
+      </ul>
+      <?php } ?>
     </li>
   </ul>
 </nav>

@@ -1,13 +1,28 @@
+<script type="text/javascript" src="redirecthome.js"></script>
 <?php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
-include 'datenbank_verbindung.php';
+
+include 'datenbank_verbindung.php';  
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+}
+
+$user_id = $_SESSION['id'];
+$query = "SELECT rolle FROM accounts WHERE id = '$user_id'";
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_array($result);
+if($row['rolle'] != "admin") {
+    echo '<div id="error-popup" style="display: block; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
+            <h2 style="margin-top: 0;">Fehler: Keine Berechtigung!</h2>
+            <p>Du hast keine Berechtigung, diese Seite zu sehen.</p>
+            <button onclick="redirectHome()" style="background-color: #007bff; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+          </div>';
+    die();
 }
 ?>
 <!DOCTYPE html>
