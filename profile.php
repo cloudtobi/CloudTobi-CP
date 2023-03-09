@@ -9,10 +9,10 @@ $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-$stmt = $con->prepare('SELECT email FROM accounts WHERE id = ?');
+$stmt = $con->prepare('SELECT email, rolle FROM accounts WHERE id = ?');
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
-$stmt->bind_result($email);
+$stmt->bind_result($email, $rolle);
 $stmt->fetch();
 $stmt->close();
 ?>
@@ -99,50 +99,52 @@ $stmt->close();
       </div>
 
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>
+          Dashboard
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="home.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="report.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Report</p>
+          </a>
+        </li>
+      </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="pdf.php" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>PDF</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="report.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Report</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pdf.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>PDF</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="logs.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Logs</p>
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
-      </nav> 
+      <?php if (mysqli_num_rows($result) > 0) { ?>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="logs.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Logs</p>
+          </a>
+        </li>
+      </ul>
+      <?php } ?>
+    </li>
+  </ul>
+</nav>
     </div>
   </aside>
 
@@ -197,6 +199,10 @@ $stmt->close();
 					<tr>
 						<td>Email:</td>
             <td><?=$email?> <a href="#" data-toggle="modal" data-target="#edit-email-modal"><i class="fas fa-pencil-alt"></i></a></td>
+					</tr>
+          <tr>
+						<td>Berechtigungen:</td>
+            <td><?=$rolle?> <a href="#" data-toggle="modal" data-target="#edit-email-modal"></a></td>
 					</tr>
 				</table>
 			</div>

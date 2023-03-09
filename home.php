@@ -93,51 +93,64 @@ if (mysqli_connect_errno()) {
         </div>
         </form>
       </div>
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
+<?php
+  include 'datenbank_verbindung.php';
+  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+  if (mysqli_connect_errno()) {
+    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+  }
+  $user_id = $_SESSION['id'];
+  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
+  $result = mysqli_query($con, $sql);
+?>
+
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>
+          Dashboard
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="home.php" class="nav-link active">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="report.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Report</p>
+          </a>
+        </li>
+      </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="pdf.php" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>PDF</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="home.php" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="report.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Report</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pdf.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>PDF</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="logs.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Logs</p>
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
-      </nav>  
+      <?php if (mysqli_num_rows($result) > 0) { ?>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="logs.php" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Logs</p>
+          </a>
+        </li>
+      </ul>
+      <?php } ?>
+    </li>
+  </ul>
+</nav>
 </div>
 </section> 
 </aside>

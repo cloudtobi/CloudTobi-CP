@@ -26,6 +26,8 @@ if (mysqli_connect_errno()) {
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -207,19 +209,13 @@ if (mysqli_connect_errno()) {
     $email = $row['email'];
     $activation_code = $row['activation_code'];
 
-    // Popup-Inhalt erstellen
-    $popup_content = "<b>ID:</b> " . $id . "<br>";
-    $popup_content .= "<b>Benutzername:</b> " . $username . "<br>";
-    $popup_content .= "<b>Email:</b> " . $email . "<br>";
-    $popup_content .= "<b>Aktivierungscode:</b> " . $activation_code . "<br>";
 
     // Tabelleintrag erstellen
     echo "<tr>";
     echo "<td>" . $id . "</td>";
     echo "<td>" . $username . "</td>";
     echo "<td>" . $email . "</td>";
-    echo "<td>" . $activation_code . "</td>";
-    echo "<td><a href='#' data-toggle='popover' data-trigger='focus' data-placement='left' data-content='" . $popup_content . "'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+    echo "<td>" . $activation_code . "</td>";    
     echo "</tr>";
   }
 
@@ -229,16 +225,7 @@ if (mysqli_connect_errno()) {
   // Verbindung zur Datenbank schließen
   mysqli_close($conn);
 ?>
-
-
-	<script>
-	// Aktivieren des Popups
-	$(document).ready(function(){
-	    $('[data-toggle="popover"]').popover();   
-	});
-	</script>
 </div>
-
 </section>
 <br>      
 <br>
