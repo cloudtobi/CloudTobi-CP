@@ -209,6 +209,29 @@ if($row['rolle'] != "admin") {
     </div>
   </div>
 </div>
+<!-- Modal für Bestätigung des Löschens -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Benutzer löschen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Möchtest du diesen Benutzer wirklich löschen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <form method='post' action='delete.php'>
+          <input type='hidden' name='id' value='" . $id . "'>
+          <button type='submit' class='btn btn-danger' name='submit_delete'>Löschen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <?php
 // Verbindung zur Datenbank herstellen
 include 'datenbank_verbindung.php';
@@ -255,11 +278,19 @@ while ($row = mysqli_fetch_assoc($result)) {
   echo "<td><input type='text' class='form-control' name='username' value='" . $username . "'></td>";
   echo "<td><input type='email' class='form-control' name='email' value='" . $email . "'></td>";
   echo "<td><input type='text' class='form-control' name='rolle' value='" . $rolle . "'></td>";
-  echo "<td><input type='text' class='form-control' name='rolle' value='" . $notiz . "'></td>";
+  echo "<td><input type='text' class='form-control' name='notiz' value='" . $notiz . "'></td>";
   echo "<td><input type='submit' class='btn btn-primary' name='submit_update' value='Speichern'></td>";
   echo "</form>";
+
+// Löschen-Button hinzufügen
+echo "<form method='post' action='delete.php'>";
+echo "<input type='hidden' name='id' value='" . $id . "'>";
+echo "<td><input type='submit' class='btn btn-danger' name='submit_delete' value='Löschen' onclick='return confirm(\"Soll dieser Benutzer wirklich gelöscht werden?\")'></td>";
+echo "</form>";
+
   echo "</tr>";
 }
+
 
 
 echo "</tbody>";

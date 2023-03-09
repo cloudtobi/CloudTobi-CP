@@ -15,6 +15,16 @@
   <div class="login-logo">
     <a>CloudTobi</a>
   </div>
+  <?php
+session_start();
+if (isset($_SESSION['error_message'])) {
+	// Fehlermeldung ausgeben
+	echo "<div class='alert alert-danger'>" . $_SESSION['error_message'] . "</div>";
+	
+	// Session-Variable zurücksetzen
+	unset($_SESSION['error_message']);
+}
+?>
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Melde dich hier an</p>

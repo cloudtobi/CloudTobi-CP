@@ -53,6 +53,8 @@ function logMessage($message, $priority, $username) {
   logMessage('hat einen neuen User erstellt', 'INFO', $username);
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
   // Weiterleitung zur home.php-Seite nach erfolgreicher Ausführung
+  // Erfolgsmeldung in Session-Variable speichern
+  $_SESSION['success_message'] = "Benutzer hinzugefügt.";
   header("Location: user-management.php");
   exit();
 } else {

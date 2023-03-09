@@ -30,19 +30,16 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 			$_SESSION['name'] = $_POST['username'];
 			$_SESSION['id'] = $id;
 			header('Location: home.php');
+			exit();
 		} else {
-			echo '<script type="text/javascript">
-                $(document).ready(function(){
-                    $("#errorModal").modal("show");
-                });
-                </script>';
+			$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
+			header("Location: index.php");
+			exit();
 		}
 	} else {
-		echo '<script type="text/javascript">
-                $(document).ready(function(){
-                    $("#errorModal").modal("show");
-                });
-                </script>';
+		$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
+		header("Location: index.php");
+		exit();
 	}
 
 	$stmt->close();
@@ -60,7 +57,7 @@ if (isset($_SESSION['loggedin'])) {
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.html');
+	header('Location: index.php');
 	exit;
 }
 include 'datenbank_verbindung.php';
