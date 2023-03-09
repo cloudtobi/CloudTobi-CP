@@ -186,14 +186,23 @@ $stmt->close();
 
     <section class="content">
     <?php
-          if (isset($_SESSION['success_message'])) {
-  // Erfolgsmeldung ausgeben
-  echo "<br><div class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
+      if (isset($_SESSION['success_message'])) {
+      // Erfolgsmeldung ausgeben
+      echo "<br><div id='success-message' class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
   
-  // Session-Variable zurücksetzen
-  unset($_SESSION['success_message']);
-}
-?>
+      // Session-Variable zurücksetzen
+      unset($_SESSION['success_message']);
+    }
+    ?>
+        <script>
+          // Verstecke die Erfolgsmeldung nach 5 Sekunden
+          setTimeout(function() {
+          var successMessage = document.getElementById('success-message');
+          successMessage.style.display = 'none';
+          }, 5000); // 5000 Millisekunden = 5 Sekunden
+        </script>
+
+
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">

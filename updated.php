@@ -15,9 +15,10 @@ if (isset($_POST['submit_update'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
   $rolle = $_POST['rolle'];
+  $notiz = $_POST['notiz'];
 
   // SQL-Abfrage zum Aktualisieren des Benutzers
-  $sql = "UPDATE accounts SET username='$username', email='$email', rolle='$rolle' WHERE id=$id";
+  $sql = "UPDATE accounts SET username='$username', email='$email', rolle='$rolle', notiz='$notiz' WHERE id=$id";
   mysqli_query($conn, $sql);
 
   // Prüfen, ob tatsächlich eine Zeile aktualisiert wurde

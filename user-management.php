@@ -224,13 +224,16 @@ $conn = mysqli_connect($host, $user, $password, $dbname);
 $sql = "SELECT id, username, email, rolle, notiz FROM accounts";
 $result = mysqli_query($conn, $sql);
 
+
 if (isset($_SESSION['success_message'])) {
-  // Erfolgsmeldung ausgeben
-  echo "<br><div class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
-  
-  // Session-Variable zurücksetzen
-  unset($_SESSION['success_message']);
+// Erfolgsmeldung ausgeben
+echo "<br><div id='success-message' class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
+
+// Session-Variable zurücksetzen
+unset($_SESSION['success_message']);
 }
+
+
 // Tabelle erstellen
 echo "<br><table class='table'>";
 echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Rolle</th><th>Notiz</th><th></th></tr></thead>";
@@ -265,6 +268,13 @@ echo "</table>";
 // Verbindung zur Datenbank schließen
 mysqli_close($conn);
 ?>
+        <script>
+          // Verstecke die Erfolgsmeldung nach 5 Sekunden
+          setTimeout(function() {
+          var successMessage = document.getElementById('success-message');
+          successMessage.style.display = 'none';
+          }, 5000); // 5000 Millisekunden = 5 Sekunden
+        </script>
 
 </div>
 </section>
