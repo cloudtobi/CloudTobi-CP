@@ -41,8 +41,6 @@ if($row['rolle'] != "admin") {
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -188,6 +186,10 @@ if($row['rolle'] != "admin") {
             <label for="password-input">Passwort:</label>
             <input type="password" class="form-control" id="password-input" name="password" required>
           </div>
+          <div class="form-group">
+            <label for="role-input">Rolle:</label>
+            <input type="text" class="form-control" id="role-input" name="role" required>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
@@ -198,48 +200,60 @@ if($row['rolle'] != "admin") {
   </div>
 </div>
 <?php
-  // Verbindung zur Datenbank herstellen
-  include 'datenbank_verbindung.php';
-  $host = $DATABASE_HOST; // Datenbankhost
-  $user = $DATABASE_USER; // Datenbankbenutzername
-  $password = $DATABASE_PASS; // Datenbankpasswort
-  $dbname = $DATABASE_NAME; // Datenbankname
+// Verbindung zur Datenbank herstellen
+include 'datenbank_verbindung.php';
+$host = $DATABASE_HOST; // Datenbankhost
+$user = $DATABASE_USER; // Datenbankbenutzername
+$password = $DATABASE_PASS; // Datenbankpasswort
+$dbname = $DATABASE_NAME; // Datenbankname
 
-  // Verbindung zur Datenbank herstellen
-  $conn = mysqli_connect($host, $user, $password, $dbname);
+// Verbindung zur Datenbank herstellen
+$conn = mysqli_connect($host, $user, $password, $dbname);
 
-  // SQL-Abfrage zum Abrufen aller Benutzer
-  $sql = "SELECT id, username, email, activation_code FROM accounts";
-  $result = mysqli_query($conn, $sql);
+// SQL-Abfrage zum Abrufen aller Benutzer
+$sql = "SELECT id, username, email, rolle FROM accounts";
+$result = mysqli_query($conn, $sql);
 
-  // Tabelle erstellen
-  echo "<br><table class='table'>";
-  echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Aktivierungscode</th><th></th></tr></thead>";
-  echo "<tbody>";
+if (isset($_SESSION['success_message'])) {
+  // Erfolgsmeldung ausgeben
+  echo "<br><div class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
+  
+  // Session-Variable zurücksetzen
+  unset($_SESSION['success_message']);
+}
+// Tabelle erstellen
+echo "<br><table class='table'>";
+echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Rolle</th><th></th></tr></thead>";
+echo "<tbody>";
 
-  // Daten der Benutzer in die Tabelle einfügen
-  while ($row = mysqli_fetch_assoc($result)) {
-    $id = $row['id'];
-    $username = $row['username'];
-    $email = $row['email'];
-    $activation_code = $row['activation_code'];
+// Daten der Benutzer in die Tabelle einfügen
+while ($row = mysqli_fetch_assoc($result)) {
+  $id = $row['id'];
+  $username = $row['username'];
+  $email = $row['email'];
+  $rolle = $row['rolle'];
+
+  // Tabelleintrag erstellen
+  echo "<tr>";
+  echo "<form method='post' action='updated.php'>";
+  echo "<input type='hidden' name='id' value='" . $id . "'>";
+  echo "<td>" . $id . "</td>";
+  echo "<td><input type='text' class='form-control' name='username' value='" . $username . "'></td>";
+  echo "<td><input type='email' class='form-control' name='email' value='" . $email . "'></td>";
+  echo "<td><input type='text' class='form-control' name='rolle' value='" . $rolle . "'></td>";
+  echo "<td><input type='submit' class='btn btn-primary' name='submit_update' value='Speichern'></td>";
+  echo "</form>";
+  echo "</tr>";
+}
 
 
-    // Tabelleintrag erstellen
-    echo "<tr>";
-    echo "<td>" . $id . "</td>";
-    echo "<td>" . $username . "</td>";
-    echo "<td>" . $email . "</td>";
-    echo "<td>" . $activation_code . "</td>";    
-    echo "</tr>";
-  }
+echo "</tbody>";
+echo "</table>";
 
-  echo "</tbody>";
-  echo "</table>";
-
-  // Verbindung zur Datenbank schließen
-  mysqli_close($conn);
+// Verbindung zur Datenbank schließen
+mysqli_close($conn);
 ?>
+
 </div>
 </section>
 <br>      

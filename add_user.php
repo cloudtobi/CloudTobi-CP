@@ -13,12 +13,13 @@ $conn = mysqli_connect($host, $user, $password, $dbname);
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $email = mysqli_real_escape_string($conn, $_POST['email']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
+$rolle = mysqli_real_escape_string($conn, $_POST['role']);
 
 // Das Passwort hashen
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // SQL-Abfrage zum Einfügen des neuen Benutzers
-$sql = "INSERT INTO accounts (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+$sql = "INSERT INTO accounts (username, email, password, rolle) VALUES ('$username', '$email', '$hashed_password', '$rolle')";
 if (mysqli_query($conn, $sql)) {
   //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
