@@ -169,6 +169,22 @@ if($row['rolle'] != "admin") {
 <br>
 <section class="content">
 <div style="margin: auto; width: fit-content;">
+<!-- Suchfunktion -->
+<style>
+  .half-width {
+  width: 30%;
+}
+  </style>
+<form method="get">
+  <div class="form-group">
+    <label for="search">Suche nach Benutzername:</label>
+    <input type="text" class="form-control half-width" id="search" name="search" placeholder="Benutzername eingeben">
+  </div>
+  <button type="submit" class="btn btn-primary">Suchen</button>
+  <a href='?' class='btn btn-secondary'>Zurücksetzen</a>
+</form>
+<br>
+
 <!-- Button zum Hinzufügen eines neuen Benutzers -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-user-modal">+</button>
 <br>
@@ -232,6 +248,7 @@ if($row['rolle'] != "admin") {
     </div>
   </div>
 </div>
+
 <?php
 // Verbindung zur Datenbank herstellen
 include 'datenbank_verbindung.php';
@@ -247,15 +264,19 @@ $conn = mysqli_connect($host, $user, $password, $dbname);
 $sql = "SELECT id, username, email, rolle, notiz FROM accounts";
 $result = mysqli_query($conn, $sql);
 
+// SQL-Abfrage zum Abrufen aller Benutzer oder nur die Benutzer nach Suchbegriff
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$sql = "SELECT id, username, email, rolle, notiz FROM accounts WHERE username LIKE '%$search%'";
+$result = mysqli_query($conn, $sql);
+
 
 if (isset($_SESSION['success_message'])) {
-// Erfolgsmeldung ausgeben
-echo "<br><div id='success-message' class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
+  // Erfolgsmeldung ausgeben
+  echo "<br><div id='success-message' class='alert alert-success'>".htmlspecialchars($_SESSION['success_message'])."</div>";
 
-// Session-Variable zurücksetzen
-unset($_SESSION['success_message']);
+  // Session-Variable zurücksetzen
+  unset($_SESSION['success_message']);
 }
-
 
 // Tabelle erstellen
 echo "<br><table class='table'>";
@@ -275,23 +296,21 @@ while ($row = mysqli_fetch_assoc($result)) {
   echo "<form method='post' action='updated.php'>";
   echo "<input type='hidden' name='id' value='" . $id . "'>";
   echo "<td>" . $id . "</td>";
-  echo "<td><input type='text' class='form-control' name='username' value='" . $username . "'></td>";
-  echo "<td><input type='email' class='form-control' name='email' value='" . $email . "'></td>";
-  echo "<td><input type='text' class='form-control' name='rolle' value='" . $rolle . "'></td>";
-  echo "<td><input type='text' class='form-control' name='notiz' value='" . $notiz . "'></td>";
+  echo "<td><input type='text' class='form-control' name='username' value='" . $username . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='email' class='form-control' name='email' value='" . $email . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='text' class='form-control' name='rolle' value='" . $rolle . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='text' class='form-control' name='notiz' value='" . $notiz . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='submit' class='btn btn-primary' name='submit_update' value='Speichern'></td>";
   echo "</form>";
 
-// Löschen-Button hinzufügen
-echo "<form method='post' action='delete.php'>";
-echo "<input type='hidden' name='id' value='" . $id . "'>";
-echo "<td><input type='submit' class='btn btn-danger' name='submit_delete' value='Löschen' onclick='return confirm(\"Soll dieser Benutzer wirklich gelöscht werden?\")'></td>";
-echo "</form>";
+  // Löschen-Button hinzufügen
+  echo "<form method='post' action='delete.php'>";
+  echo "<input type='hidden' name='id' value='" . $id . "'>";
+  echo "<td><input type='submit' class='btn btn-danger' name='submit_delete' value='Löschen' onclick='return confirm(\"Soll dieser Benutzer wirklich gelöscht werden?\")'></td>";
+  echo "</form>";
 
   echo "</tr>";
 }
-
-
 
 echo "</tbody>";
 echo "</table>";
@@ -299,6 +318,8 @@ echo "</table>";
 // Verbindung zur Datenbank schließen
 mysqli_close($conn);
 ?>
+</div>
+
 <script>
   // Verstecke die Erfolgsmeldung nach 5 Sekunden
   setTimeout(function() {
