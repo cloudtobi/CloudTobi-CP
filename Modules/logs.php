@@ -1,10 +1,31 @@
+<script type="text/javascript" src="redirecthome.js"></script>
 <?php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+
+include 'datenbank_verbindung.php';  
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if (mysqli_connect_errno()) {
+	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+}
+
+$user_id = $_SESSION['id'];
+$query = "SELECT rolle FROM accounts WHERE id = '$user_id'";
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_array($result);
+if($row['rolle'] != "admin") {
+    echo '<div id="error-popup" style="display: block; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
+            <h2 style="margin-top: 0;">Fehler: Keine Berechtigung!</h2>
+            <p>Du hast keine Berechtigung, diese Seite zu sehen.</p>
+            <button onclick="redirectHome()" style="background-color: #007bff; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+          </div>';
+    die();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -22,8 +43,6 @@ if (!isset($_SESSION['loggedin'])) {
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.css">
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -93,61 +112,50 @@ if (!isset($_SESSION['loggedin'])) {
         </div>
         </form>
       </div>
-      <?php
-  include 'datenbank_verbindung.php';
-  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-  if (mysqli_connect_errno()) {
-    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-  }
-  $user_id = $_SESSION['id'];
-  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
-  $result = mysqli_query($con, $sql);
-?>
+
       <nav class="mt-2">
-  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-    <li class="nav-item menu-open">
-      <a href="#" class="nav-link active">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>
-          Dashboard
-          <i class="right fas fa-angle-left"></i>
-        </p>
-      </a>
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="home.php" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-      </ul>
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="report.php" class="nav-link active">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Report</p>
-          </a>
-        </li>
-      </ul>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="pdf.php" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>PDF</p>
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
             </a>
-          </li>
-        </ul>
-      <?php if (mysqli_num_rows($result) > 0) { ?>
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="logs.php" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Logs</p>
-          </a>
-        </li>
-      </ul>
-      <?php } ?>
-      <?php if (mysqli_num_rows($result) > 0) { ?>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="home.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="report.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Report</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pdf.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>PDF</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="logs.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Logs</p>
+                </a>
+              </li>
+            </ul>
+            <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
           <a href="user-management.php" class="nav-link">
@@ -157,101 +165,14 @@ if (!isset($_SESSION['loggedin'])) {
         </li>
       </ul>
       <?php } ?>
-    </li>
-  </ul>
-</nav>
+          </li>
+        </ul>
+      </nav>
     </div>
   </aside>
-
   <section class="content">
   <div style="margin: auto; width: fit-content;">
-  <style>
-table.beamtenliste {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  margin: 0 auto;
-  border: none;
-  border-radius: 5px; 
-  
-}
-
-td, th {
-  border: none;
-  text-align: left;
-  padding: 12px;
-  background: #f9f9f9;
-}
-
-th {
-  background-color: #9e9e9e; 
-  color: white;
-  font-weight: bold;
-  padding: 12px;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
-
-.beamtenliste tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-button {
-  background-image: url('ms-excel-icon.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: #ffffff;
-  font-size: 16px;
-  text-align: center;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-</style>
-
-
-<button onclick="exportTableToExcel('items')" alt="Excel"></button>
-<script>
-function exportTableToExcel(items) {
-  var tab_text="<table border='1px'><tr bgcolor='#87AFC6'>";
-  var textRange; var j=0;
-  tab = document.getElementById(items); 
-  
-  for(j = 0 ; j < tab.rows.length ; j++) {     
-    tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-  }
-  
-  tab_text=tab_text+"</table>";
-  tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, ""); 
-  tab_text= tab_text.replace(/<img[^>]*>/gi,""); 
-  tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, "");
-  var ua = window.navigator.userAgent;
-  var msie = ua.indexOf("MSIE "); 
-  if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      
-  {
-    txtArea1.document.open("txt/html","replace");
-    txtArea1.document.write(tab_text);
-    txtArea1.document.close();
-    txtArea1.focus(); 
-    sa=txtArea1.document.execCommand("SaveAs",true,"beamtenliste.xls");
-  }  
-  else                
-  {
-    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-  }
-  return (sa);
-}
-
-</script>
-
-<?php
+  <?php
 
   include 'datenbank_verbindung.php';
   $conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
@@ -260,14 +181,13 @@ function exportTableToExcel(items) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  $sql = "SELECT id, no, description, description2, unit FROM items";
+  $sql = "SELECT log_id, user_id, message, priority, created_at FROM logs";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
-    echo "<h2>Items</h2>";
-    echo "<table id='items' border='1'><tr><th></th><th>Nummer</th><th>Beschreibung</th><th>Beschreibung2</th><th>Einheit</th></tr>";
+    echo "<table border='1'><tr><th>ID</th><th>User</th><th>Nachricht</th><th>Priorität</th><th>Erstellt am:</th></tr>";
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["id"]."</td><td>".$row["no"]."</td><td>".$row["description"]."</td> <td>".$row["description2"]."</td><td>".$row["unit"]."</td></tr>";
+        echo "<tr><td>".$row["log_id"]."</td><td>".$row["user_id"]."</td> <td>".$row["message"]."</td><td>".$row["priority"]."</td><td>".$row["created_at"]."</td></tr>";
     }
     echo "</table>";
   } else {
@@ -275,35 +195,12 @@ function exportTableToExcel(items) {
   }
   $conn->close();
   ?>
-
   </div>
 </section>
+
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-</div>
+
+  </div>
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
@@ -315,6 +212,7 @@ function exportTableToExcel(items) {
   <aside class="control-sidebar control-sidebar-dark">
   </aside>
 </div>
+
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script>
@@ -333,12 +231,6 @@ function exportTableToExcel(items) {
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script src="dist/js/adminlte.js"></script>
 <script src="dist/js/pages/dashboard.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-
-
-
-
 </body>
 </html>
 

@@ -4,6 +4,16 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+?> 
+<?php
+  include 'datenbank_verbindung.php';
+  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+  if (mysqli_connect_errno()) {
+    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+  }
+  $user_id = $_SESSION['id'];
+  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
+  $result = mysqli_query($con, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -22,8 +32,6 @@ if (!isset($_SESSION['loggedin'])) {
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.css">
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -73,7 +81,7 @@ if (!isset($_SESSION['loggedin'])) {
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="home.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SAPD</span>
+      <span class="brand-text font-weight-light">CloudTobi</span>
     </a>
 
     <div class="sidebar">
@@ -93,16 +101,7 @@ if (!isset($_SESSION['loggedin'])) {
         </div>
         </form>
       </div>
-      <?php
-  include 'datenbank_verbindung.php';
-  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-  if (mysqli_connect_errno()) {
-    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-  }
-  $user_id = $_SESSION['id'];
-  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
-  $result = mysqli_query($con, $sql);
-?>
+
       <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item menu-open">
@@ -123,7 +122,7 @@ if (!isset($_SESSION['loggedin'])) {
       </ul>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="report.php" class="nav-link active">
+          <a href="report.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Report</p>
           </a>
@@ -131,7 +130,7 @@ if (!isset($_SESSION['loggedin'])) {
       </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pdf.php" class="nav-link">
+            <a href="pdf.php" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>PDF</p>
             </a>
@@ -162,128 +161,89 @@ if (!isset($_SESSION['loggedin'])) {
 </nav>
     </div>
   </aside>
-
   <section class="content">
   <div style="margin: auto; width: fit-content;">
-  <style>
-table.beamtenliste {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  margin: 0 auto;
-  border: none;
-  border-radius: 5px; 
-  
-}
-
-td, th {
-  border: none;
-  text-align: left;
-  padding: 12px;
-  background: #f9f9f9;
-}
-
-th {
-  background-color: #9e9e9e; 
-  color: white;
-  font-weight: bold;
-  padding: 12px;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
-
-.beamtenliste tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-button {
-  background-image: url('ms-excel-icon.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: #ffffff;
-  font-size: 16px;
-  text-align: center;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-</style>
-
-
-<button onclick="exportTableToExcel('items')" alt="Excel"></button>
-<script>
-function exportTableToExcel(items) {
-  var tab_text="<table border='1px'><tr bgcolor='#87AFC6'>";
-  var textRange; var j=0;
-  tab = document.getElementById(items); 
-  
-  for(j = 0 ; j < tab.rows.length ; j++) {     
-    tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-  }
-  
-  tab_text=tab_text+"</table>";
-  tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, ""); 
-  tab_text= tab_text.replace(/<img[^>]*>/gi,""); 
-  tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, "");
-  var ua = window.navigator.userAgent;
-  var msie = ua.indexOf("MSIE "); 
-  if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      
-  {
-    txtArea1.document.open("txt/html","replace");
-    txtArea1.document.write(tab_text);
-    txtArea1.document.close();
-    txtArea1.focus(); 
-    sa=txtArea1.document.execCommand("SaveAs",true,"beamtenliste.xls");
-  }  
-  else                
-  {
-    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-  }
-  return (sa);
-}
-
-</script>
-
-<?php
-
+  <h1>PDF generieren</h1>
+  <br>
+	<form>
+		<label for="eingabe1">Item:</label>
+    <select id="eingabe1" name="eingabe1">
+    <?php
   include 'datenbank_verbindung.php';
-  $conn = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+  $conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  $result = mysqli_query($conn, "SELECT no, description FROM items");
 
-  $sql = "SELECT id, no, description, description2, unit FROM items";
-  $result = $conn->query($sql);
-
-  if ($result->num_rows > 0) {
-    echo "<h2>Items</h2>";
-    echo "<table id='items' border='1'><tr><th></th><th>Nummer</th><th>Beschreibung</th><th>Beschreibung2</th><th>Einheit</th></tr>";
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["id"]."</td><td>".$row["no"]."</td><td>".$row["description"]."</td> <td>".$row["description2"]."</td><td>".$row["unit"]."</td></tr>";
+  while ($row = mysqli_fetch_assoc($result)) {
+    $selected = '';
+    if ($row['no'] == $_POST['eingabe1']) {
+      $selected = 'selected';
     }
-    echo "</table>";
-  } else {
-    echo "Keine Ergebnisse";
+    echo "<option value='" . $row['no'] . "' " . $selected . ">" . $row['no'] . " - " . $row['description'] . "</option>";
   }
-  $conn->close();
+
+  mysqli_close($conn);
   ?>
+	</select><br><br>
+		<label for="eingabe2">Eingabe 2:</label>
+		<input type="text" id="eingabe2" name="eingabe2"><br><br>
+
+		<label for="eingabe3">Eingabe 3:</label>
+		<input type="text" id="eingabe3" name="eingabe3"><br><br>
+
+    <label for="eingabe4">Barcode:</label>
+		<input type="text" id="eingabe4" name="eingabe4"><br><br>
+
+
+		<button onclick="generatePDF()">PDF generieren</button>
+	</form>
+
+	<script>
+		function generatePDF() {
+			var eingabe1 = document.getElementById("eingabe1").value;
+      eingabe1 = "Item Nr: " + eingabe1;
+			var eingabe2 = document.getElementById("eingabe2").value;
+			var eingabe3 = document.getElementById("eingabe3").value;
+      var eingabe4 = document.getElementById("eingabe4").value;
+      var text = eingabe1 + "\n\n" + eingabe2 + "\n\n" + eingabe3;
+      var docDefinition = {
+			content: [
+				{
+					text: text,
+					style: 'text-center'
+				}
+			],
+			styles: {
+				'text-center': {
+					alignment: 'center'
+				}
+			}
+		};
+
+    var barcodeCanvas = document.createElement('canvas');
+  JsBarcode(barcodeCanvas, eingabe4);
+  var barcodeImage = barcodeCanvas.toDataURL();
+
+  docDefinition.content.push({
+    image: barcodeImage,
+    alignment: 'center',
+    width: 70,
+    margin: [0, 20]
+  });
+		pdfMake.createPdf(docDefinition).open();
+	}
+
+	</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+  <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
+
 
   </div>
 </section>
+
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -333,12 +293,6 @@ function exportTableToExcel(items) {
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script src="dist/js/adminlte.js"></script>
 <script src="dist/js/pages/dashboard.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-
-
-
-
 </body>
 </html>
 
