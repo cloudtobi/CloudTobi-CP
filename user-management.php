@@ -154,7 +154,7 @@ if($row['rolle'] != "admin") {
             <?php } ?>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pdf.php" class="nav-link active">
+                <a href="user-management.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User Management</p>
                 </a>
@@ -299,13 +299,13 @@ echo "</table>";
 // Verbindung zur Datenbank schließen
 mysqli_close($conn);
 ?>
-        <script>
-          // Verstecke die Erfolgsmeldung nach 5 Sekunden
-          setTimeout(function() {
-          var successMessage = document.getElementById('success-message');
-          successMessage.style.display = 'none';
-          }, 5000); // 5000 Millisekunden = 5 Sekunden
-        </script>
+<script>
+  // Verstecke die Erfolgsmeldung nach 5 Sekunden
+  setTimeout(function() {
+  var successMessage = document.getElementById('success-message');
+  successMessage.style.display = 'none';
+  }, 5000); // 5000 Millisekunden = 5 Sekunden
+</script>
 
 </div>
 </section>
