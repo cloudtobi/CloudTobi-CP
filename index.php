@@ -51,7 +51,7 @@ if (isset($_SESSION['error_message'])) {
         </div>
         <div class="row">
           <div class="col-4 mx-auto">
-            <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
           </div>
         </div>
       </form>
