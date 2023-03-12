@@ -1,9 +1,8 @@
 <?php
-session_start();
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 include 'datenbank_verbindung.php';
@@ -32,6 +31,6 @@ function logMessage($message, $priority, $username) {
   logMessage('hat sich abgemeldet', 'INFO', $username);
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_destroy();
-header('Location: index.html');
+header('Location: Login');
 
 ?>

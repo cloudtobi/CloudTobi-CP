@@ -52,7 +52,7 @@ To get the iframe 100% working you need the following content-wrapper markup:
         <h2 class="display-4">Tab is loading <i class="fa fa-sync fa-spin"></i></h2>
       </div>
     </div>
-    <div class="tab-pane fade" id="panel-index-html" role="tabpanel" aria-labelledby="tab-index-html"><iframe src="./index.html"></iframe></div>
+    <div class="tab-pane fade" id="panel-index-html" role="tabpanel" aria-labelledby="tab-index-html"><iframe src="./Login"></iframe></div>
   </div>
 </div>
 ```
@@ -122,4 +122,4 @@ $('.content-wrapper').IFrame({
 |removeActiveTab| Remove active iframe tab.
 {: .table .table-bordered .bg-light}
 
-Example: `$('.content-wrapper').IFrame('createTab', 'Home', 'index.html, 'index', true)`
+Example: `$('.content-wrapper').IFrame('createTab', 'Home', 'Login, 'index', true)`

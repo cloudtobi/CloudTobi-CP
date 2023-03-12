@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // LOGGING SYSTEM ----------------------------------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 include 'datenbank_verbindung.php';
@@ -59,7 +59,7 @@ function logMessage($message, $priority, $username) {
   // Leiten Sie den Benutzer zurück zur Profilseite
   // Erfolgsmeldung in Session-Variable speichern
   $_SESSION['success_message'] = "Profilbild aktualisiert.";
-  header('Location: /profile');
+  header('Location: /Profil');
   exit;
 }
 ?>

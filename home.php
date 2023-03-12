@@ -43,7 +43,7 @@ if (mysqli_connect_errno()) {
         <a href="Home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block hide-extension">
-        <a href="Profile" class="nav-link">Mein Profil</a>
+        <a href="Profil" class="nav-link">Mein Profil</a>
       </li>
     </ul>
 
@@ -82,7 +82,7 @@ if (mysqli_connect_errno()) {
         <img widht="200" height="200" src="display_image?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
-          <a href="profile" class="d-block"><?=$_SESSION['name']?></a>
+          <a href="Profil" class="d-block"><?=$_SESSION['name']?></a>
         </div>
       </div>
 

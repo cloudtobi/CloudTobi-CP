@@ -2,7 +2,7 @@
 
 session_start();
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 // Verbindung mit der Datenbank herstellen

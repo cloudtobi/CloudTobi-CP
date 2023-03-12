@@ -29,7 +29,7 @@ if (isset($_POST['submit_delete'])) {
     //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
     session_start();                                                                                                            
     if (!isset($_SESSION['loggedin'])) {                                                                                        
-        header('Location: index.html');
+        header('Location: Login');
         exit;
     }
     include 'datenbank_verbindung.php';

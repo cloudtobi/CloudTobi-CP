@@ -29,7 +29,7 @@ if(isset($_POST['submit'])) {
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 include 'datenbank_verbindung.php';
@@ -90,7 +90,7 @@ mysqli_close($conn);
 <div class="login-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="index.html" class="h1">CloudTobi</a>
+      <a href="Login" class="h1">CloudTobi</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Hier kannst du dein Passwort ändern</p>

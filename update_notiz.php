@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Benutzereingabe validieren
   if (!isset($_POST['new_notiz']) || empty($_POST['new_notiz'])) {
     $_SESSION['error'] = 'Neue Notiz fehlt';
-    header('Location: profile');
+    header('Location: Profil');
     exit();
   }
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 include 'datenbank_verbindung.php';
@@ -67,20 +67,20 @@ function logMessage($message, $priority, $username) {
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
     // Erfolgsmeldung in Session-Variable speichern
     $_SESSION['success_message'] = "Notiz aktualisiert.";
-    header('Location: profile');
+    header('Location: Profil');
     exit();
   } catch (PDOException $e) {
     // Bei einem Fehler die Transaktion rückgängig machen
     $pdo->rollback();
 
     $_SESSION['error'] = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.';
-    header('Location: profile');
+    header('Location: Profil');
     exit();
   }
 
 } else {
   // Zugriff auf diese Seite ist nur über das POST-Formular erlaubt
-  header('Location: profile');
+  header('Location: Profil');
   exit();
 }
 ?>

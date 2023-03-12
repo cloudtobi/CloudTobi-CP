@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 ?>
@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedin'])) {
       </li>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile" class="nav-link">Mein Profil</a>
+        <a href="Profil" class="nav-link">Mein Profil</a>
       </li>
     </ul>
 
@@ -82,7 +82,7 @@ if (!isset($_SESSION['loggedin'])) {
         <img widht="200" height="200" src="display_image?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
-          <a href="profile" class="d-block"><?=$_SESSION['name']?></a>
+          <a href="Profil" class="d-block"><?=$_SESSION['name']?></a>
         </div>
       </div>
 

@@ -29,16 +29,16 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 			$_SESSION['loggedin'] = TRUE;
 			$_SESSION['name'] = $_POST['username'];
 			$_SESSION['id'] = $id;
-			header('Location: home');
+			header('Location: Home');
 			exit();
 		} else {
 			$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
-			header("Location: index.php");
+			header("Location: Login");
 			exit();
 		}
 	} else {
 		$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
-		header("Location: index.php");
+		header("Location: Login");
 		exit();
 	}
 
@@ -57,7 +57,7 @@ if (isset($_SESSION['loggedin'])) {
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.php');
+	header('Location: Login');
 	exit;
 }
 include 'datenbank_verbindung.php';

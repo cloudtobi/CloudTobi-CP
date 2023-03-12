@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Benutzereingabe validieren
   if (!isset($_POST['new_username']) || empty($_POST['new_username'])) {
     $_SESSION['error'] = 'Neuer Benutzername fehlt';
-    header('Location: profile');
+    header('Location: Profil');
     exit();
   }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($count > 0) {
     $_SESSION['error'] = 'Der Benutzername wird bereits verwendet';
-    header('Location: profile');
+    header('Location: Profil');
     exit();
   }
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if(confirm('Der Benutzername wurde erfolgreich aktualisiert. Sie werden jetzt ausgeloggt.')) {
         window.location.href = 'logout';
       } else {
-        window.location.href = 'profile';
+        window.location.href = 'Profil';
       }
     </script>";
     exit();
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
-	header('Location: index.html');
+	header('Location: Login');
 	exit;
 }
 include 'datenbank_verbindung.php';
