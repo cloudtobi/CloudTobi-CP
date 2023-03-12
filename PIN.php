@@ -48,6 +48,10 @@ if (isset($_SESSION['error_message'])) {
             <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
           </div>
         </div>
+        <br>
+        <div style="text-align:center;">
+                <a href="Login">Anmelden mit Passwort</a>
+        </div>    
       </form>
     </div>
   </div>

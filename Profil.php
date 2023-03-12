@@ -9,10 +9,10 @@ $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-$stmt = $con->prepare('SELECT email, rolle, notiz FROM accounts WHERE id = ?');
+$stmt = $con->prepare('SELECT pin, email, rolle, notiz FROM accounts WHERE id = ?');
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
-$stmt->bind_result($email, $rolle, $notiz);
+$stmt->bind_result($pin, $email, $rolle, $notiz);
 $stmt->fetch();
 $stmt->close();
 ?>
@@ -249,6 +249,10 @@ $stmt->close();
             <td><?=$email?> <a href="#" data-toggle="modal" data-target="#edit-email-modal"><i class="fas fa-pencil-alt"></i></a></td>
 					</tr>
           <tr>
+						<td>PIN:</td>
+            <td><?=$pin?> <a href="#" data-toggle="modal" data-target="#edit-pin-modal"><i class="fas fa-pencil-alt"></a></td>
+					</tr>
+          <tr>
 						<td>Berechtigungen:</td>
             <td><?=$rolle?> <a href="#" data-toggle="modal" data-target=""></a></td>
 					</tr>
@@ -284,6 +288,31 @@ $stmt->close();
   </div>
 </div>
 
+      <!-- Modal zum Bearbeiten des PIN -->
+      <div class="modal fade" id="edit-pin-modal" tabindex="-1" role="dialog" aria-labelledby="edit-pin-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="update_pin">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit-pin-modal-label">PIN ändern</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="new-pin-input">Neuer PIN:</label>
+            <input type="text" class="form-control" id="new-pin-input" name="new_pin" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
       <!-- Modal zum Bearbeiten der Email -->
       <div class="modal fade" id="edit-email-modal" tabindex="-1" role="dialog" aria-labelledby="edit-email-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">

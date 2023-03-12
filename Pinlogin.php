@@ -42,7 +42,9 @@ if(isset($_POST['pin']) && !empty($_POST['pin'])){
     exit;
   } else {
     // Benutzer nicht gefunden - Login fehlgeschlagen
-    echo "Falscher PIN-Code.";
+    $_SESSION['error_message'] = "Falscher PIN.";
+    header("Location: PIN");
+    exit();
   }
 }
 

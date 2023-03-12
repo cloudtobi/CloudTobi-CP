@@ -56,6 +56,10 @@ if (isset($_SESSION['error_message'])) {
             <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
           </div>
         </div>
+        <br>
+        <div style="text-align:center;">
+                <a href="PIN">Anmelden mit PIN</a>
+        </div>      
       </form>
     </div>
   </div>
