@@ -173,9 +173,9 @@ if (mysqli_connect_errno()) {
 </aside>
 <br>
 <section class="content">
-  <div style="margin: auto; width: fit-content;">
-<div class="card">
-  <div class="card-header">
+<div style="margin: auto; width: fit-content;">
+  <div class="card">
+    <div class="card-header">
     <h3 class="card-title">Willkommen!</h3>
 
     <div class="card-tools">
@@ -185,16 +185,16 @@ if (mysqli_connect_errno()) {
       <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
         <i class="fas fa-times"></i>
       </button>
-    </div>
-  </div>
-  <div class="card-body">
-    Hallo <?=$_SESSION['name']?>!
-  </div>
-  <div class="card-footer">
-    CloudTobi - CP
-  </div>
+      </div>
+      </div>
+      <div class="card-body">
+      Hallo <?=$_SESSION['name']?>!
+      </div>
+      <div class="card-footer">
+      CloudTobi - CP
+      </div>
 
-</div>
+    </div>
                   <div class="btn-group">
                     <button type="button" class="btn btn-info">Aktion</button>
                     <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown">
@@ -206,6 +206,8 @@ if (mysqli_connect_errno()) {
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                   </div>
+  </div>
+</div>              
 </section>
 <br>      
 <br>
@@ -231,7 +233,6 @@ if (mysqli_connect_errno()) {
 <br>
 <br>
 <br>
-</div>
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0
@@ -241,7 +242,6 @@ if (mysqli_connect_errno()) {
 
   <aside class="control-sidebar control-sidebar-dark">
   </aside>
-</div>
 
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>

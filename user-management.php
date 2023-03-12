@@ -66,7 +66,7 @@ if($row['rolle'] != "admin") {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="home" class="nav-link">Home</a>
+        <a href="Home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="Profil" class="nav-link">Mein Profil</a>
@@ -166,7 +166,7 @@ if($row['rolle'] != "admin") {
             <?php } ?>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="user-management" class="nav-link active hide-extension">
+                <a href="User-Management" class="nav-link active hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User Management</p>
                 </a>
@@ -331,7 +331,7 @@ echo "</table>";
 mysqli_close($conn);
 ?>
 </div>
-
+</section>
 <script>
   // Verstecke die Erfolgsmeldung nach 5 Sekunden
   setTimeout(function() {
@@ -340,8 +340,6 @@ mysqli_close($conn);
   }, 5000); // 5000 Millisekunden = 5 Sekunden
 </script>
 
-</section>
-</div>
 <br>      
 <br>
 <br>

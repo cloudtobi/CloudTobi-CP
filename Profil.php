@@ -156,7 +156,7 @@ $stmt->close();
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="logs" class="nav-link">
+          <a href="Logs" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Logs</p>
           </a>
@@ -166,7 +166,7 @@ $stmt->close();
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="user-management" class="nav-link">
+          <a href="User-Management" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>User Management</p>
           </a>

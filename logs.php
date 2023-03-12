@@ -64,7 +64,7 @@ if($row['rolle'] != "admin") {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="home" class="nav-link">Home</a>
+        <a href="Home" class="nav-link">Home</a>
       </li>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
@@ -165,7 +165,7 @@ if($row['rolle'] != "admin") {
             <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="user-management" class="nav-link">
+          <a href="User-Management" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>User Management</p>
           </a>
