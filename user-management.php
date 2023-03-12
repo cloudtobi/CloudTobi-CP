@@ -41,6 +41,13 @@ if($row['rolle'] != "admin") {
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/dist/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/dist/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/dist/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/dist/img/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/dist/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 </head>
 <style>
     .hide-extension a::after {
@@ -125,7 +132,7 @@ if($row['rolle'] != "admin") {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home" class="nav-link hide-extension">
+                <a href="Home" class="nav-link hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
@@ -133,7 +140,7 @@ if($row['rolle'] != "admin") {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="report.php" class="nav-link hide-extension">
+                <a href="Report" class="nav-link hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Report</p>
                 </a>
@@ -141,7 +148,7 @@ if($row['rolle'] != "admin") {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pdf" class="nav-link hide-extension">
+                <a href="PDF" class="nav-link hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>PDF</p>
                 </a>
@@ -150,7 +157,7 @@ if($row['rolle'] != "admin") {
             <?php if (mysqli_num_rows($result) > 0) { ?>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="logs" class="nav-link hide-extension">
+              <a href="Logs" class="nav-link hide-extension">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Logs</p>
               </a>

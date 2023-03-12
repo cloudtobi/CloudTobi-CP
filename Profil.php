@@ -27,6 +27,13 @@ $stmt->close();
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/dist/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/dist/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/dist/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/dist/img/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/dist/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 </head>
 <style>
     .hide-extension a::after {
@@ -124,7 +131,7 @@ $stmt->close();
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="home" class="nav-link">
+          <a href="Home" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Dashboard</p>
           </a>
@@ -132,7 +139,7 @@ $stmt->close();
       </ul>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="report.php" class="nav-link">
+          <a href="Report" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Report</p>
           </a>
@@ -140,7 +147,7 @@ $stmt->close();
       </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pdf" class="nav-link">
+            <a href="PDF" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>PDF</p>
             </a>
