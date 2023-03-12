@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['success'] = 'Der Benutzername wurde erfolgreich aktualisiert';
     echo "<script>
       if(confirm('Der Benutzername wurde erfolgreich aktualisiert. Sie werden jetzt ausgeloggt.')) {
-        window.location.href = 'logout.php';
+        window.location.href = 'logout';
       } else {
         window.location.href = 'profile';
       }
@@ -91,13 +91,13 @@ function logMessage($message, $priority, $username) {
     $pdo->rollback();
 
     $_SESSION['error'] = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.';
-    header('Location: logout.php');
+    header('Location: logout');
     exit();
   }
 
 } else {
   // Zugriff auf diese Seite ist nur über das POST-Formular erlaubt
-  header('Location: logout.php');
+  header('Location: logout');
   exit();
 }
 ?>

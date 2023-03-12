@@ -40,10 +40,10 @@ if (mysqli_connect_errno()) {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block hide-extension">
-        <a href="home" class="nav-link">Home</a>
+        <a href="Home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block hide-extension">
-        <a href="profile" class="nav-link">Mein Profil</a>
+        <a href="Profile" class="nav-link">Mein Profil</a>
       </li>
     </ul>
 
@@ -79,7 +79,7 @@ if (mysqli_connect_errno()) {
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-        <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
+        <img widht="200" height="200" src="display_image?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
           <a href="profile" class="d-block"><?=$_SESSION['name']?></a>
@@ -116,7 +116,7 @@ if (mysqli_connect_errno()) {
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="home" class="nav-link active">
+          <a href="Home" class="nav-link active">
             <i class="far fa-circle nav-icon"></i>
             <p>Dashboard</p>
           </a>
@@ -124,7 +124,7 @@ if (mysqli_connect_errno()) {
       </ul>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="report.php" class="nav-link">
+          <a href="Report" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Report</p>
           </a>
@@ -132,7 +132,7 @@ if (mysqli_connect_errno()) {
       </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pdf" class="nav-link">
+            <a href="PDF" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>PDF</p>
             </a>
@@ -141,7 +141,7 @@ if (mysqli_connect_errno()) {
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="logs" class="nav-link">
+          <a href="Logs" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Logs</p>
           </a>
@@ -151,7 +151,7 @@ if (mysqli_connect_errno()) {
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="user-management" class="nav-link">
+          <a href="User-Management" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>User Management</p>
           </a>

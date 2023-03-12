@@ -98,7 +98,7 @@ if($row['rolle'] != "admin") {
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-        <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
+        <img widht="200" height="200" src="display_image?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
           <a href="profile" class="d-block"><?=$_SESSION['name']?></a>

@@ -41,14 +41,14 @@ $stmt->close();
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="home" class="nav-link">Home</a>
+        <a href="Home" class="nav-link">Home</a>
       </li>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile" class="nav-link">Mein Profil</a>
+        <a href="Profile" class="nav-link">Mein Profil</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="logout.php" class="nav-link">Abmelden</a>
+        <a href="logout" class="nav-link">Abmelden</a>
       </li>
     </ul>
 
@@ -85,7 +85,7 @@ $stmt->close();
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-        <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
+        <img widht="200" height="200" src="display_image?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
           <a href="profile" class="d-block"><?=$_SESSION['name']?></a>
@@ -215,7 +215,7 @@ $stmt->close();
               <div class="card-body box-profile">
               <h1 class="text-center"><?=$_SESSION['name']?><h1>
                 <div class="text-center">
-                <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
+                <img widht="200" height="200" src="display_image?user_id=<?php echo $user_id; ?>" alt="Profilbild">
                 </div>
                 <br>
               </div>
@@ -261,7 +261,7 @@ $stmt->close();
 <div class="modal fade" id="edit-username-modal" tabindex="-1" role="dialog" aria-labelledby="edit-username-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method="post" action="update_username.php">
+      <form method="post" action="update_username">
         <div class="modal-header">
           <h5 class="modal-title" id="edit-username-modal-label">Benutzernamen ändern</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
@@ -287,7 +287,7 @@ $stmt->close();
       <div class="modal fade" id="edit-email-modal" tabindex="-1" role="dialog" aria-labelledby="edit-email-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method="post" action="update_email.php">
+      <form method="post" action="update_email">
         <div class="modal-header">
           <h5 class="modal-title" id="edit-email-modal-label">Emailadresse ändern</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
@@ -313,7 +313,7 @@ $stmt->close();
       <div class="modal fade" id="edit-notiz-modal" tabindex="-1" role="dialog" aria-labelledby="edit-notiz-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method="post" action="update_notiz.php">
+      <form method="post" action="update_notiz">
         <div class="modal-header">
           <h5 class="modal-title" id="edit-notiz-modal-label">Notiz ändern</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Schließen">
@@ -367,9 +367,9 @@ $stmt->close();
       }
             </style>
                       <p class="mt-3 mb-1">
-            <a href="reset_password.php">Passwort zurücksetzen</a>
+            <a href="reset_password">Passwort zurücksetzen</a>
           </p><br>
-          <form method="post" action="upload_profile_image.php" enctype="multipart/form-data">
+          <form method="post" action="upload_profile_image" enctype="multipart/form-data">
           <label for="image">Profilbild:</label><br>
           <input type="file" accept="image/*" name="image" id="image"><br>
           <br>

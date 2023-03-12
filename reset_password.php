@@ -94,7 +94,7 @@ mysqli_close($conn);
     </div>
     <div class="card-body">
       <p class="login-box-msg">Hier kannst du dein Passwort ändern</p>
-      <form method="post" action="reset_password.php">
+      <form method="post" action="reset_password">
         <div class="input-group mb-3">
           <input type="username" class="form-control" placeholder="Username" name="username" id="username">
           <div class="input-group-append">
