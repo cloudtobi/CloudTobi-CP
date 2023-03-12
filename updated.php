@@ -57,7 +57,7 @@ function logMessage($message, $priority, $username) {
   logMessage('hat einen User geändert', 'INFO', $username);
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
     // Weiterleitung zur anderen Seite
-    header("Location: user-management.php");
+    header("Location: user-management");
     exit();
   }
 }

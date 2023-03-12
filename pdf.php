@@ -46,11 +46,11 @@ if (!isset($_SESSION['loggedin'])) {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="home.php" class="nav-link">Home</a>
+        <a href="home" class="nav-link">Home</a>
       </li>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile.php" class="nav-link">Mein Profil</a>
+        <a href="profile" class="nav-link">Mein Profil</a>
       </li>
     </ul>
 
@@ -79,7 +79,7 @@ if (!isset($_SESSION['loggedin'])) {
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="home.php" class="brand-link">
+    <a href="home" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">CloudTobi</span>
     </a>
@@ -90,7 +90,7 @@ if (!isset($_SESSION['loggedin'])) {
         <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block"><?=$_SESSION['name']?></a>
+          <a href="profile" class="d-block"><?=$_SESSION['name']?></a>
         </div>
       </div>
 
@@ -114,7 +114,7 @@ if (!isset($_SESSION['loggedin'])) {
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="home.php" class="nav-link">
+          <a href="home" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Dashboard</p>
           </a>
@@ -130,7 +130,7 @@ if (!isset($_SESSION['loggedin'])) {
       </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pdf.php" class="nav-link active">
+            <a href="pdf" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>PDF</p>
             </a>
@@ -139,7 +139,7 @@ if (!isset($_SESSION['loggedin'])) {
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="logs.php" class="nav-link">
+          <a href="logs" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Logs</p>
           </a>
@@ -149,7 +149,7 @@ if (!isset($_SESSION['loggedin'])) {
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="user-management.php" class="nav-link">
+          <a href="user-management" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>User Management</p>
           </a>

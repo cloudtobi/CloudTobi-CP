@@ -42,6 +42,11 @@ if($row['rolle'] != "admin") {
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
+<style>
+    .hide-extension a::after {
+        content: "";
+    }
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -54,10 +59,10 @@ if($row['rolle'] != "admin") {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="home.php" class="nav-link">Home</a>
+        <a href="home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile.php" class="nav-link">Mein Profil</a>
+        <a href="profile" class="nav-link">Mein Profil</a>
       </li>
     </ul>
 
@@ -86,7 +91,7 @@ if($row['rolle'] != "admin") {
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="home.php" class="brand-link">
+    <a href="home" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">CloudTobi</span>
     </a>
@@ -97,7 +102,7 @@ if($row['rolle'] != "admin") {
         <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block"><?=$_SESSION['name']?></a>
+          <a href="profile" class="d-block hide-extension"><?=$_SESSION['name']?></a>
         </div>
       </div>
 
@@ -120,7 +125,7 @@ if($row['rolle'] != "admin") {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="home.php" class="nav-link">
+                <a href="home" class="nav-link hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
@@ -128,7 +133,7 @@ if($row['rolle'] != "admin") {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="report.php" class="nav-link">
+                <a href="report.php" class="nav-link hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Report</p>
                 </a>
@@ -136,7 +141,7 @@ if($row['rolle'] != "admin") {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pdf.php" class="nav-link">
+                <a href="pdf" class="nav-link hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>PDF</p>
                 </a>
@@ -145,7 +150,7 @@ if($row['rolle'] != "admin") {
             <?php if (mysqli_num_rows($result) > 0) { ?>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="logs.php" class="nav-link">
+              <a href="logs" class="nav-link hide-extension">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Logs</p>
               </a>
@@ -154,7 +159,7 @@ if($row['rolle'] != "admin") {
             <?php } ?>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="user-management.php" class="nav-link active">
+                <a href="user-management" class="nav-link active hide-extension">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User Management</p>
                 </a>
@@ -178,9 +183,9 @@ if($row['rolle'] != "admin") {
 <form method="get">
   <div class="form-group">
     <label for="search">Suche nach Benutzername:</label>
-    <input type="text" class="form-control half-width" id="search" name="search" placeholder="Benutzername eingeben">
+    <input type="text" class="form-control half-width hide-extension" id="search" name="search" placeholder="Benutzername eingeben">
   </div>
-  <button type="submit" class="btn btn-primary">Suchen</button>
+  <button type="submit" class="btn btn-primary hide-extension">Suchen</button>
   <a href='?' class='btn btn-secondary'>Zurücksetzen</a>
 </form>
 <br>
@@ -328,8 +333,8 @@ mysqli_close($conn);
   }, 5000); // 5000 Millisekunden = 5 Sekunden
 </script>
 
-</div>
 </section>
+</div>
 <br>      
 <br>
 <br>

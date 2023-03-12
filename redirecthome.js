@@ -1,3 +1,3 @@
 function redirectHome() {
-    window.location.href = "home.php";
+    window.location.href = "home";
   }

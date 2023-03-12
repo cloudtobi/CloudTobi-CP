@@ -9,6 +9,8 @@ $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -29,7 +31,6 @@ if (mysqli_connect_errno()) {
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
@@ -38,11 +39,11 @@ if (mysqli_connect_errno()) {
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="home.php" class="nav-link">Home</a>
+      <li class="nav-item d-none d-sm-inline-block hide-extension">
+        <a href="home" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile.php" class="nav-link">Mein Profil</a>
+      <li class="nav-item d-none d-sm-inline-block hide-extension">
+        <a href="profile" class="nav-link">Mein Profil</a>
       </li>
     </ul>
 
@@ -69,9 +70,8 @@ if (mysqli_connect_errno()) {
       </li>
     </ul>
   </nav>
-
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="home.php" class="brand-link">
+    <a href="home" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">CloudTobi</span>
     </a>
@@ -82,7 +82,7 @@ if (mysqli_connect_errno()) {
         <img widht="200" height="200" src="display_image.php?user_id=<?php echo $user_id; ?>" alt="Profilbild">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block"><?=$_SESSION['name']?></a>
+          <a href="profile" class="d-block"><?=$_SESSION['name']?></a>
         </div>
       </div>
 
@@ -108,7 +108,7 @@ if (mysqli_connect_errno()) {
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item menu-open">
       <a href="#" class="nav-link active">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <i class="nav-icon fas fa-tachometer-alt "></i>
         <p>
           Dashboard
           <i class="right fas fa-angle-left"></i>
@@ -116,7 +116,7 @@ if (mysqli_connect_errno()) {
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="home.php" class="nav-link active">
+          <a href="home" class="nav-link active">
             <i class="far fa-circle nav-icon"></i>
             <p>Dashboard</p>
           </a>
@@ -132,7 +132,7 @@ if (mysqli_connect_errno()) {
       </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pdf.php" class="nav-link">
+            <a href="pdf" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>PDF</p>
             </a>
@@ -141,7 +141,7 @@ if (mysqli_connect_errno()) {
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="logs.php" class="nav-link">
+          <a href="logs" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Logs</p>
           </a>
@@ -151,7 +151,7 @@ if (mysqli_connect_errno()) {
       <?php if (mysqli_num_rows($result) > 0) { ?>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="user-management.php" class="nav-link">
+          <a href="user-management" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>User Management</p>
           </a>
@@ -194,7 +194,7 @@ if (mysqli_connect_errno()) {
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu" role="menu">
-                      <a class="dropdown-item" href="pdf.php">PDF</a>
+                      <a class="dropdown-item" href="pdf">PDF</a>
                       <a class="dropdown-item" href="#">Another action</a>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>

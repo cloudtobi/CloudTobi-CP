@@ -59,7 +59,7 @@ function logMessage($message, $priority, $username) {
   // Leiten Sie den Benutzer zurück zur Profilseite
   // Erfolgsmeldung in Session-Variable speichern
   $_SESSION['success_message'] = "Profilbild aktualisiert.";
-  header('Location: /profile.php');
+  header('Location: /profile');
   exit;
 }
 ?>

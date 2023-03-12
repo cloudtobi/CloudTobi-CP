@@ -58,5 +58,5 @@ if (isset($_POST['submit_delete'])) {
       logMessage('hat einen User gelöscht', 'INFO', $username);
     //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 // Zurück zur Übersichtsseite
-header("Location: user-management.php");
+header("Location: user-management");
 ?>

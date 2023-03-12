@@ -127,7 +127,7 @@ mysqli_close($conn);
       </form>
     
       <p class="mt-3 mb-1">
-        <a href="home.php">Login</a>
+        <a href="home">Login</a>
       </p>
     </div>
   </div>

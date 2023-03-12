@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['id'])) {
   // Benutzer ist nicht angemeldet, daher umleiten zur Anmeldeseite
-  header('Location: home.php');
+  header('Location: home');
   exit();
 }
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Benutzereingabe validieren
   if (!isset($_POST['new_email']) || empty($_POST['new_email'])) {
     $_SESSION['error'] = 'Neue E-Mail-Adresse fehlt';
-    header('Location: profile.php');
+    header('Location: profile');
     exit();
   }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($count > 0) {
     $_SESSION['error'] = 'Die E-Mail-Adresse wird bereits verwendet';
-    header('Location: profile.php');
+    header('Location: profile');
     exit();
   }
 
@@ -78,20 +78,20 @@ function logMessage($message, $priority, $username) {
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
     // Erfolgsmeldung in Session-Variable speichern
     $_SESSION['success_message'] = "Email aktualisiert.";
-    header('Location: profile.php');
+    header('Location: profile');
     exit();
   } catch (PDOException $e) {
     // Bei einem Fehler die Transaktion rückgängig machen
     $pdo->rollback();
 
     $_SESSION['error'] = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.';
-    header('Location: profile.php');
+    header('Location: profile');
     exit();
   }
 
 } else {
   // Zugriff auf diese Seite ist nur über das POST-Formular erlaubt
-  header('Location: profile.php');
+  header('Location: profile');
   exit();
 }
 ?>

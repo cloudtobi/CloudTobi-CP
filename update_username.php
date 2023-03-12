@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['id'])) {
   // Benutzer ist nicht angemeldet, daher umleiten zur Anmeldeseite
-  header('Location: home.php');
+  header('Location: home');
   exit();
 }
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Benutzereingabe validieren
   if (!isset($_POST['new_username']) || empty($_POST['new_username'])) {
     $_SESSION['error'] = 'Neuer Benutzername fehlt';
-    header('Location: profile.php');
+    header('Location: profile');
     exit();
   }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($count > 0) {
     $_SESSION['error'] = 'Der Benutzername wird bereits verwendet';
-    header('Location: profile.php');
+    header('Location: profile');
     exit();
   }
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if(confirm('Der Benutzername wurde erfolgreich aktualisiert. Sie werden jetzt ausgeloggt.')) {
         window.location.href = 'logout.php';
       } else {
-        window.location.href = 'profile.php';
+        window.location.href = 'profile';
       }
     </script>";
     exit();

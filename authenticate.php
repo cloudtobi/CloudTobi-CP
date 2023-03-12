@@ -29,7 +29,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 			$_SESSION['loggedin'] = TRUE;
 			$_SESSION['name'] = $_POST['username'];
 			$_SESSION['id'] = $id;
-			header('Location: home.php');
+			header('Location: home');
 			exit();
 		} else {
 			$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
