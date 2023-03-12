@@ -29,32 +29,8 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 			$_SESSION['loggedin'] = TRUE;
 			$_SESSION['name'] = $_POST['username'];
 			$_SESSION['id'] = $id;
-			header('Location: Home');
-			exit();
-		} else {
-			$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
-			header("Location: Login");
-			exit();
-		}
-	} else {
-		$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
-		header("Location: Login");
-		exit();
-	}
-
-	$stmt->close();
-}
-
-if (isset($_SESSION['loggedin'])) {
-	$stmt = $con->prepare('SELECT username FROM accounts WHERE id = ?');
-	$stmt->bind_param('i', $_SESSION['id']);
-	$stmt->execute();
-	$stmt->bind_result($username);
-	$stmt->fetch();
-	$stmt->close();
-}
-
-//-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
+			header('Location: Home');			
+			//-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
 session_start();                                                                                                            
 if (!isset($_SESSION['loggedin'])) {                                                                                        
 	header('Location: Login');
@@ -85,4 +61,28 @@ function logMessage($message, $priority, $username) {
   }
   logMessage('hat sich angemeldet', 'INFO', $username);
 //-----------------------------------LOGGING SYSTEM------------------------------------------------------------------------------
+		exit();
+		} else {
+			$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
+			header("Location: Login");
+			exit();
+		}
+	} else {
+		$_SESSION['error_message'] = "Falscher Benutzername oder Passwort.";
+		header("Location: Login");
+		exit();
+	}
+
+	$stmt->close();
+}
+
+if (isset($_SESSION['loggedin'])) {
+	$stmt = $con->prepare('SELECT username FROM accounts WHERE id = ?');
+	$stmt->bind_param('i', $_SESSION['id']);
+	$stmt->execute();
+	$stmt->bind_result($username);
+	$stmt->fetch();
+	$stmt->close();
+}
+
 ?>
