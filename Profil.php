@@ -16,7 +16,16 @@ $stmt->bind_result($email, $rolle, $notiz);
 $stmt->fetch();
 $stmt->close();
 ?>
-
+<?php
+  include 'datenbank_verbindung.php';
+  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+  if (mysqli_connect_errno()) {
+    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+  }
+  $user_id = $_SESSION['id'];
+  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
+  $result = mysqli_query($con, $sql);
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -35,11 +44,6 @@ $stmt->close();
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 </head>
-<style>
-    .hide-extension a::after {
-        content: "";
-    }
-</style>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -109,16 +113,6 @@ $stmt->close();
           </div>
         </div>
       </div>
-<?php
-  include 'datenbank_verbindung.php';
-  $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-  if (mysqli_connect_errno()) {
-    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-  }
-  $user_id = $_SESSION['id'];
-  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
-  $result = mysqli_query($con, $sql);
-?>
       <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item menu-open">

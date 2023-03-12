@@ -168,89 +168,45 @@ if (!isset($_SESSION['loggedin'])) {
 </nav>
     </div>
   </aside>
-  <section class="content">
+<section class="content">
   <div style="margin: auto; width: fit-content;">
-  <h1>PDF generieren</h1>
-  <br>
-	<form>
-		<label for="eingabe1">Item:</label>
-    <select id="eingabe1" name="eingabe1">
-    <?php
-  include 'datenbank_verbindung.php';
-  $conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+    <h2 style="text-align: center;">PDF</h2>
+      <style>
 
-  $result = mysqli_query($conn, "SELECT no, description FROM items");
+      #qr_code {
+        display: none;
+      }
+    </style>
 
-  while ($row = mysqli_fetch_assoc($result)) {
-    $selected = '';
-    if ($row['no'] == $_POST['eingabe1']) {
-      $selected = 'selected';
-    }
-    echo "<option value='" . $row['no'] . "' " . $selected . ">" . $row['no'] . " - " . $row['description'] . "</option>";
-  }
-
-  mysqli_close($conn);
-  ?>
-	</select><br><br>
-		<label for="eingabe2">Eingabe 2:</label>
-		<input type="text" id="eingabe2" name="eingabe2"><br><br>
-
-		<label for="eingabe3">Eingabe 3:</label>
-		<input type="text" id="eingabe3" name="eingabe3"><br><br>
-
-    <label for="eingabe4">Barcode:</label>
-		<input type="text" id="eingabe4" name="eingabe4"><br><br>
-
-
-		<button onclick="generatePDF()">PDF generieren</button>
-	</form>
-
-	<script>
-		function generatePDF() {
-			var eingabe1 = document.getElementById("eingabe1").value;
-      eingabe1 = "Item Nr: " + eingabe1;
-			var eingabe2 = document.getElementById("eingabe2").value;
-			var eingabe3 = document.getElementById("eingabe3").value;
-      var eingabe4 = document.getElementById("eingabe4").value;
-      var text = eingabe1 + "\n\n" + eingabe2 + "\n\n" + eingabe3;
-      var docDefinition = {
-			content: [
-				{
-					text: text,
-					style: 'text-center'
-				}
-			],
-			styles: {
-				'text-center': {
-					alignment: 'center'
-				}
-			}
-		};
-
-    var barcodeCanvas = document.createElement('canvas');
-  JsBarcode(barcodeCanvas, eingabe4);
-  var barcodeImage = barcodeCanvas.toDataURL();
-
-  docDefinition.content.push({
-    image: barcodeImage,
-    alignment: 'center',
-    width: 70,
-    margin: [0, 20]
-  });
-		pdfMake.createPdf(docDefinition).open();
-	}
-
-	</script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
-  <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
-
-
+    <div>
+      <label for="qr-text">QR Code Link:</label>
+      <input type="text" id="qr-text" value="">
+    </div>
+    <br>
+    <div>
+      <label for="title-text">Beschreibung1:</label>
+      <input type="text" id="title-text" value="">
+    </div>
+    <br>
+    <div>
+      <label for="description-text">Beschreibung2:</label>
+      <input type="text" id="description-text" value="">
+    </div>
+    <br>
+    <div>
+      <label for="pdf-option">PDF Option:</label>
+      <select id="pdf-option">
+        <option value="new-tab">Browser</option>
+        <option value="download">Download</option>
+      </select>
+    </div>
+<br>
+    <div style="text-align: center;">
+      <button class="btn btn-primary" id="download"><i class="fas fa-print"></i> Druck</button>
+    </div>
+    <div id="qr_code"></div>
   </div>
 </section>
-
-</div>
 <br>
 <br>
 <br>
@@ -300,6 +256,14 @@ if (!isset($_SESSION['loggedin'])) {
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script src="dist/js/adminlte.js"></script>
 <script src="dist/js/pages/dashboard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="plugins/qr/qr.js"></script>
+
 </body>
 </html>
 

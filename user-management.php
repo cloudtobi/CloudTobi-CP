@@ -49,11 +49,6 @@ if($row['rolle'] != "admin") {
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 </head>
-<style>
-    .hide-extension a::after {
-        content: "";
-    }
-</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
