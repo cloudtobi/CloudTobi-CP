@@ -16,7 +16,7 @@ $user_id = $_SESSION['id'];
 $query = "SELECT rolle FROM accounts WHERE id = '$user_id'";
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
-if($row['rolle'] != "admin") {
+if($row['rolle'] != "Admin") {
     echo '<div id="error-popup" style="display: block; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
             <h2 style="margin-top: 0;">Fehler: Keine Berechtigung!</h2>
             <p>Du hast keine Berechtigung, diese Seite zu sehen.</p>
@@ -307,7 +307,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   echo "<td><input type='text' class='form-control' name='username' size='5' value='" . $username . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='email' class='form-control' name='email' size='15' value='" . $email . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='text' class='form-control' name='rolle' size='5' value='" . $rolle . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
-  echo "<td><input type='text' class='form-control' name='notiz' value='" . $notiz . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='text' class='form-control' name='notiz' size='5' value='" . $notiz . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='text' class='form-control' name='pin' size='5' value='" . $pin . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='submit' class='btn btn-primary' name='submit_update' value='Speichern'></td>";
   echo "</form>";

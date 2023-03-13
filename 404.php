@@ -107,7 +107,7 @@ if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
   }
   $user_id = $_SESSION['id'];
-  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'admin'";
+  $sql = "SELECT * FROM accounts WHERE id = $user_id AND rolle = 'Admin'";
   $result = mysqli_query($con, $sql);
 ?>
 

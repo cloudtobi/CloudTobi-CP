@@ -16,7 +16,7 @@ $user_id = $_SESSION['id'];
 $query = "SELECT rolle FROM accounts WHERE id = '$user_id'";
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
-if($row['rolle'] != "admin") {
+if($row['rolle'] != "Admin") {
     echo '<div id="error-popup" style="display: block; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
             <h2 style="margin-top: 0;">Fehler: Keine Berechtigung!</h2>
             <p>Du hast keine Berechtigung, diese Seite zu sehen.</p>
