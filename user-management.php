@@ -118,17 +118,10 @@ if($row['rolle'] != "admin") {
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="Home" class="nav-link hide-extension">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
                 </a>
               </li>
@@ -136,7 +129,7 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="Report" class="nav-link hide-extension">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-chart-bar"></i>
                   <p>Report</p>
                 </a>
               </li>
@@ -144,7 +137,7 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="PDF" class="nav-link hide-extension">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-file-pdf"></i>
                   <p>PDF</p>
                 </a>
               </li>
@@ -153,7 +146,7 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="Logs" class="nav-link hide-extension">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-clipboard-list"></i>
                 <p>Logs</p>
               </a>
             </li>
@@ -162,11 +155,19 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="User-Management" class="nav-link active hide-extension">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-users-cog"></i>
                   <p>User Management</p>
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="logout" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+                  <p>Abmelden</p>
+              </a>
+            </li>
+      </ul>
           </li>
         </ul>
       </nav>  
@@ -185,7 +186,7 @@ if($row['rolle'] != "admin") {
 <form method="get">
   <div class="form-group">
     <label for="search">Suche nach Benutzername:</label>
-    <input type="text" class="form-control half-width hide-extension" id="search" name="search" placeholder="Benutzername eingeben">
+    <input type="text" class="form-control half-width" id="search" name="search" placeholder="Benutzername eingeben">
   </div>
   <button type="submit" class="btn btn-primary hide-extension">Suchen</button>
   <a href='?' class='btn btn-secondary'>Zurücksetzen</a>
@@ -255,7 +256,6 @@ if($row['rolle'] != "admin") {
     </div>
   </div>
 </div>
-
 <?php
 // Verbindung zur Datenbank herstellen
 include 'datenbank_verbindung.php';
@@ -268,12 +268,12 @@ $dbname = $DATABASE_NAME; // Datenbankname
 $conn = mysqli_connect($host, $user, $password, $dbname);
 
 // SQL-Abfrage zum Abrufen aller Benutzer
-$sql = "SELECT id, username, email, rolle, notiz FROM accounts";
+$sql = "SELECT id, username, email, rolle, notiz, pin FROM accounts";
 $result = mysqli_query($conn, $sql);
 
 // SQL-Abfrage zum Abrufen aller Benutzer oder nur die Benutzer nach Suchbegriff
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-$sql = "SELECT id, username, email, rolle, notiz FROM accounts WHERE username LIKE '%$search%'";
+$sql = "SELECT id, username, email, rolle, notiz, pin FROM accounts WHERE username LIKE '%$search%'";
 $result = mysqli_query($conn, $sql);
 
 
@@ -287,7 +287,7 @@ if (isset($_SESSION['success_message'])) {
 
 // Tabelle erstellen
 echo "<br><table class='table'>";
-echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Rolle</th><th>Notiz</th><th></th></tr></thead>";
+echo "<thead><tr><th>ID</th><th>Benutzername</th><th>Email</th><th>Rolle</th><th>Notiz</th><th>PIN</th><th></th></tr></thead>";
 echo "<tbody>";
 
 // Daten der Benutzer in die Tabelle einfügen
@@ -297,16 +297,18 @@ while ($row = mysqli_fetch_assoc($result)) {
   $email = $row['email'];
   $rolle = $row['rolle'];
   $notiz = $row['notiz'];
+  $pin = $row['pin'];
 
   // Tabelleintrag erstellen
   echo "<tr>";
   echo "<form method='post' action='updated.php'>";
   echo "<input type='hidden' name='id' value='" . $id . "'>";
   echo "<td>" . $id . "</td>";
-  echo "<td><input type='text' class='form-control' name='username' value='" . $username . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
-  echo "<td><input type='email' class='form-control' name='email' value='" . $email . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
-  echo "<td><input type='text' class='form-control' name='rolle' value='" . $rolle . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='text' class='form-control' name='username' size='5' value='" . $username . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='email' class='form-control' name='email' size='15' value='" . $email . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='text' class='form-control' name='rolle' size='5' value='" . $rolle . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='text' class='form-control' name='notiz' value='" . $notiz . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
+  echo "<td><input type='text' class='form-control' name='pin' size='5' value='" . $pin . "' readonly onclick='this.removeAttribute(\"readonly\")'></td>";
   echo "<td><input type='submit' class='btn btn-primary' name='submit_update' value='Speichern'></td>";
   echo "</form>";
 
@@ -334,7 +336,6 @@ mysqli_close($conn);
   successMessage.style.display = 'none';
   }, 5000); // 5000 Millisekunden = 5 Sekunden
 </script>
-
 <br>      
 <br>
 <br>

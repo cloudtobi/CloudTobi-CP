@@ -123,17 +123,10 @@ if($row['rolle'] != "admin") {
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="Home" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
                 </a>
               </li>
@@ -141,7 +134,7 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="Report" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-chart-bar"></i>
                   <p>Report</p>
                 </a>
               </li>
@@ -149,7 +142,7 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="PDF" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-file-pdf"></i>
                   <p>PDF</p>
                 </a>
               </li>
@@ -157,21 +150,29 @@ if($row['rolle'] != "admin") {
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="Logs" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-clipboard-list"></i>
                   <p>Logs</p>
                 </a>
               </li>
             </ul>
             <?php if (mysqli_num_rows($result) > 0) { ?>
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="User-Management" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>User Management</p>
-          </a>
-        </li>
-      </ul>
-      <?php } ?>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="User-Management" class="nav-link">
+                  <i class="fas fa-users-cog"></i>
+                  <p>User Management</p>
+                </a>
+              </li>
+            </ul>
+            <?php } ?>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="logout" class="nav-link">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <p>Abmelden</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
